@@ -1,18 +1,9 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>HTML !DOCTYPE declaration</title>
-</head>
-<body>
-    {% if user.is_authenticated %}
-    <a href="/logout">Logout</a>
-    <a href="#">Welcome, {{user.username}}</a>
-    {% else %}
-    <a href = "/register">register</a>
-    
-    {% endif %}
-
-    
-</body>
+    <head>
+        <title>index</title>
+    </head>
+    <body>
+        <a href="/register">register</a>
+    </body>
 </html>

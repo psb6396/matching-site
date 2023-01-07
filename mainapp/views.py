@@ -1,44 +1,19 @@
-from django.shortcuts import  render, redirect
-from .forms import NewUserForm
-from django.contrib import messages
-from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.forms import AuthenticationForm
+from django.shortcuts import render
+from .models import My_user
 
 def index(request):
     return render(request, 'mainapp/index.html')
 
+def register(request):
+    return render(request, 'mainapp/register.html')
+
 def register_request(request):
-    if request.method == "POST":
-        form = NewUserForm(request.POST) #왜 인자로 request.post가 들어오는걸까...
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            messages.success(request, "Registration successful." )
-            return redirect("mainapp:index")
-        messages.error(request, "Unsuccessful registration. Invalid information.")
-    form = NewUserForm()
-    return render (request=request, template_name="mainapp/register.html", context={"register_form":form})
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    user = My_user.objects.create_user(password = password , username = username)
+    user.save()
+    return render(request, 'mainapp/index.html')
 
-def login_request(request):
-    if request.method =="POST":
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                messages.info(request, f"You are now logged in as {username}.")
-                return redirect("mainapp:index")
-            else:
-                messages.error(request,"Invalid username or password.")
-        else:
-            messages.error(request,"Invalid username or password.")
-    form = AuthenticationForm()
-    return render(request=request, template_name="mainapp/login.html", context={"login_form":form})
-
-def logout_request(request):
-	logout(request)
-	messages.info(request, "You have successfully logged out.") 
-	return redirect("mainapp:index")
-
+#로그인 함수
+def login(request):
+    
