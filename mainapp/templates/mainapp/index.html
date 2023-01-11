@@ -4,6 +4,18 @@
         <title>index</title>
     </head>
     <body>
-        <a href="/register">register</a>
+        {% if username %}
+        <p>hi! {{username}}</p>
+        <p><form action="/logout_request/"></form></p>
+        {% else %}
+        <form action="/login_request/" method="post">
+            {% csrf_token %}
+            <label for="username">userName:</label>
+            <input id="username" type="text" name="username" >
+            <label for="password">password:</label>
+            <input id="password" type="text" name="password" >
+            <input type="submit" value="OK">
+        <a href="/register">If you don't have any account, register</a>
+        {% endif %}
     </body>
 </html>
