@@ -4,6 +4,8 @@
         <title>index</title>
     </head>
     <body>
+        {% csrf_token %}
+        {{ request.COOKIES.username }}
         {% if username %}
         <p>hi! {{username}}</p>
         <p><form action="/logout_request/"></form></p>
