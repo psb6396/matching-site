@@ -5,10 +5,10 @@
     </head>
     <body>
         {% csrf_token %}
-        {{ request.COOKIES.username }}
-        {% if username %}
-        <p>hi! {{username}}</p>
-        <p><form action="/logout_request/"></form></p>
+        {% if request.session.username %}
+        <p>hi! {{request.session.username}}</p>
+        <a href="/logout_request">log out</a>
+
         {% else %}
         <form action="/login_request/" method="post">
             {% csrf_token %}

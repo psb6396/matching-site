@@ -23,19 +23,16 @@ def login_request(request):
     user = authenticate(request, username = username, password = password)
     if user is not None:
         login(request, user)
-        response = render(request, 'mainapp/index.html', {'username': username})
-        response.set_cookie('username',username)
-        return response
+        request.session["username"] = username
+        return render(request, 'mainapp/index.html')
     else:
-        messages.error(request, 'invalid login')
         return render(request, 'mainapp/index.html')
 
 #로그아웃 함수 구현하기    
 def logout_request(request):
+    del request.session["username"]
     logout(request)
     return render(request, 'mainapp/index.html')
 
-#페이지마다 로그인되었을때를 다르게 구현해야하는데 
-# 세션 이용????
+# 매칭 잡기 함수?
 
-# 이유정 4321
