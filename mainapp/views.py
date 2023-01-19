@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from .models import My_user
 from django.contrib.auth import authenticate, login, logout
-from django.contrib import messages
-from django_elo_rating import EloRated
+from django.db.models import Max
+import random
 
 def index(request):
     return render(request, 'mainapp/index.html')
@@ -36,12 +36,20 @@ def logout_request(request):
     return render(request, 'mainapp/index.html')
 
 # 매칭 잡기 함수?
-# 일단은 무작위로 상대방 고를까? elorated 내장함수를 쓰긴 해야할 듯 ??
-
 def match_making(request):
-    if "username" in request.session:
-        player_1 = My_user(username = "username") #본인 세션을 이용해서 만들고싶은데 어떻게 해야하지??
-        
-        player_2 = My_user()
-        
-    else:
+    me = My_user(username = "username")
+    me.
+    max_id = My_user.objects.all().aggregate(max_id = Max("id"))['max_id']
+    pk = random.randint(1, max_id)
+    opponent_player = My_user.objects.get(pk = pk)
+
+    if opponent_player. is True:
+
+
+
+#    if "username" in request.session:
+#        player_1 = My_user(username = "username") #본인 세션을 이용해서 만들고싶은데 어떻게 해야하지??
+#       max_id = My_user.objects.all().aggregate(max_id = Max("id"))['max_id']
+#        pk = random.randint(1, max_id)
+#        player_2 = My_user.objects.get(pk = pk)
+# 주석 처리된 부분은 매칭잡을때보다는 매칭뜨고 나서 결과만들어질때 쓰여질 듯,,
