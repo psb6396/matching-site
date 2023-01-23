@@ -35,15 +35,27 @@ def logout_request(request):
     logout(request)
     return render(request, 'mainapp/index.html')
 
-# 매칭 잡기 함수?
+# 매칭 잡기 함수?  친구신청수락 알고리즘 공부가 필요할 듯 그걸로 매칭함수 만들수있을듯
 def match_making(request):
-    me = My_user(username = "username")
-    me.
-    max_id = My_user.objects.all().aggregate(max_id = Max("id"))['max_id']
-    pk = random.randint(1, max_id)
-    opponent_player = My_user.objects.get(pk = pk)
+    if 'username' in request.session:
+        
+        my_name = request.session["username"]
+        me = My_user.objects.get(username = my_name)
+        me.intetion_to_fight = True
+        me.save()
+        max_id = My_user.objects.all().aggregate(max_id = Max("id"))['max_id']
+        pk = random.randint(1, max_id)
+        opponent_player = My_user.objects.get(id = pk)
+        
+        if opponent_player.intetion_to_fight is True:
+            # 상대방도 싸우고 싶으면 그다음에는? 뭐해야하지? 싸움 성립시켜야지
+            
 
-    if opponent_player. is True:
+        
+
+
+
+
 
 
 
@@ -52,4 +64,4 @@ def match_making(request):
 #       max_id = My_user.objects.all().aggregate(max_id = Max("id"))['max_id']
 #        pk = random.randint(1, max_id)
 #        player_2 = My_user.objects.get(pk = pk)
-# 주석 처리된 부분은 매칭잡을때보다는 매칭뜨고 나서 결과만들어질때 쓰여질 듯,,
+# 주석 처리된 부분은 매칭잡을때보다는 매칭뜨고 나서 결과만들어질때 쓰여질 듯
