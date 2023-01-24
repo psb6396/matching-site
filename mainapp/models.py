@@ -9,4 +9,5 @@ class My_user(AbstractUser):
     
     # are_you_winner = models.BooleanField(default=True) 이긴거 입력해서 점수 환산할것?? 이렇게 하는 게 맞나
 
-class match
+class Match(models.Model):
+    match = models.BooleanField(default = False)
