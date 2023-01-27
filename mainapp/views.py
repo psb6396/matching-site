@@ -56,7 +56,10 @@ def logout_request(request):
 
 @login_required
 def profile(request):
+    my_name = request.session["username"]
     
+
+    return render(request, 'profile.html')
 
 
 
