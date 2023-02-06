@@ -57,8 +57,9 @@ def logout_request(request):
 @login_required
 def profile(request):
     my_name = request.session["username"]
-    
-
+    me = My_user.objects.get(username = my_name)
+    me.
+    #프로필에 있어야 할 거?? 뭐가 있지.. 자기 매칭 잡혔는지를 확인할 수 있어야 함
     return render(request, 'profile.html')
 
 
