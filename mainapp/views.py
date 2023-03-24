@@ -36,31 +36,31 @@ def logout_request(request):
     logout(request)
     return render(request, 'mainapp/index.html')
 
-# 매칭 잡기 함수?  친구신청수락 알고리즘 공부가 필요할 듯 그걸로 매칭함수 만들수있을듯
-#def match_making(request):
-#    if 'username' in request.session:
-#        
-#        my_name = request.session["username"]
-#        me = My_user.objects.get(username = my_name)
-#        me.intetion_to_fight = True
-#        me.save()
-#        max_id = My_user.objects.all().aggregate(max_id = Max("id"))['max_id']
-#        pk = random.randint(1, max_id)
-#        opponent_player = My_user.objects.get(id = pk)
-#        
-#        if opponent_player.intetion_to_fight is True:
+# 매칭 잡기 함수
+# def match_making(request):
+#     if 'username' in request.session:
+        
+#         my_name = request.session["username"]
+#         me = My_user.objects.get(username = my_name)
+#         me.intetion_to_fight = True
+#         me.save()
+#         max_id = My_user.objects.all().aggregate(max_id = Max("id"))['max_id']
+#         pk = random.randint(1, max_id)
+#         opponent_player = My_user.objects.get(id = pk)
+        
+#         if opponent_player.intetion_to_fight is True:
+#             #매치 객체 생성해야함
+#             match = Match
+            
+            
 
-            #먼저 상대방에게 내가 매칭신청한것을 알려야 함 그걸보고 상대방이 최종승낙을 해야지
-            # 상대방도 싸우고 싶으면 그다음에는? 뭐해야하지? 싸움 성립시켜야지
-#아니다 그전에 유저 프로필부터 만들자 그래야 신청받은사람이 승낙할수있음 ㅇㅇ
-
-@login_required
-def profile(request):
-    my_name = request.session["username"]
-    me = My_user.objects.get(username = my_name)
-    me.
-    #프로필에 있어야 할 거?? 뭐가 있지.. 자기 매칭 잡혔는지를 확인할 수 있어야 함
-    return render(request, 'profile.html')
+# @login_required
+# def profile(request):
+#     my_name = request.session["username"]
+#     me = My_user.objects.get(username = my_name)
+#     me.
+    
+#     return render(request, 'profile.html')
 
 
 
@@ -70,8 +70,7 @@ def profile(request):
 
 
 #    if "username" in request.session:
-#        player_1 = My_user(username = "username") #본인 세션을 이용해서 만들고싶은데 어떻게 해야하지??
+#        player_1 = My_user(username = "username")
 #       max_id = My_user.objects.all().aggregate(max_id = Max("id"))['max_id']
 #        pk = random.randint(1, max_id)
 #        player_2 = My_user.objects.get(pk = pk)
-# 주석 처리된 부분은 매칭잡을때보다는 매칭뜨고 나서 결과만들어질때 쓰여질 듯
