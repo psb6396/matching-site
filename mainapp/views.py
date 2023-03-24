@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import My_user
+from .models import My_user, Match
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Max
 import random
@@ -36,21 +36,21 @@ def logout_request(request):
     logout(request)
     return render(request, 'mainapp/index.html')
 
-# 매칭 잡기 함수
-# def match_making(request):
-#     if 'username' in request.session:
+#매칭 잡기 함수
+def match_making(request):
+    if 'username' in request.session:
         
-#         my_name = request.session["username"]
-#         me = My_user.objects.get(username = my_name)
-#         me.intetion_to_fight = True
-#         me.save()
-#         max_id = My_user.objects.all().aggregate(max_id = Max("id"))['max_id']
-#         pk = random.randint(1, max_id)
-#         opponent_player = My_user.objects.get(id = pk)
+        my_name = request.session["username"]
+        me = My_user.objects.get(username = my_name)
+        me.intetion_to_fight = True
+        me.save()
+        max_id = My_user.objects.all().aggregate(max_id = Max("id"))['max_id']
+        pk = random.randint(1, max_id)
+        opponent_player = My_user.objects.get(id = pk)
         
-#         if opponent_player.intetion_to_fight is True:
-#             #매치 객체 생성해야함
-#             match = Match
+        if opponent_player.intetion_to_fight is True:
+            #매치 객체 생성해야함
+            match = Match()
             
             
 
