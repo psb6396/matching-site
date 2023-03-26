@@ -48,10 +48,15 @@ def match_making(request):
         pk = random.randint(1, max_id)
         opponent_player = My_user.objects.get(id = pk)
         
-        if opponent_player.intetion_to_fight is True:
-            #매치 객체 생성해야함
-            match = Match()
+        if opponent_player.intention_to_fight is True:
+            #매치 객체 생성해야함...argument 정보 넣어주기
+            match = Match.objects.create(player1 = me , player2 = opponent_player)
+            match.save()
+
+        elif opponent_player.intention_to_fight is False:
+            #무엇을 해야할까
             
+
             
 
 # @login_required
@@ -61,12 +66,6 @@ def match_making(request):
 #     me.
     
 #     return render(request, 'profile.html')
-
-
-
-
-
-
 
 
 #    if "username" in request.session:
