@@ -13,13 +13,9 @@ class Match(models.Model):
 #    match_establishment = models.BooleanField(default = False)
     # are_you_winner = models.BooleanField(default=True) 
 
-# class Profile(models.Model):
-#     my_user = models.OneToOneField(My_user, on_delete = models.CASCADE)
-#     avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
-#     bio = models.TextField()
-#     matching_request_from_others = models.BooleanField(default=False)
+class Profile(models.Model):
+    my_user = models.OneToOneField(My_user, on_delete = models.CASCADE)
+    matching_request_from_others = models.BooleanField(default=False)
+    # avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
+    # bio = models.TextField()
     
-
-#    def __str__(self):
-#        return self.user.username
-

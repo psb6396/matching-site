@@ -42,34 +42,28 @@ def match_making(request):
         
         my_name = request.session["username"]
         me = My_user.objects.get(username = my_name)
-        me.intetion_to_fight = True
+        me.intention_to_fight = True
         me.save()
-        max_id = My_user.objects.all().aggregate(max_id = Max("id"))['max_id']
-        pk = random.randint(1, max_id)
-        opponent_player = My_user.objects.get(id = pk)
-        
-        if opponent_player.intention_to_fight is True:
-            #매치 객체 생성해야함...argument 정보 넣어주기
-            match = Match.objects.create(player1 = me , player2 = opponent_player)
-            match.save()
-
-        elif opponent_player.intention_to_fight is False:
-            #무엇을 해야할까
-            
-
-            
-
-# @login_required
-# def profile(request):
-#     my_name = request.session["username"]
-#     me = My_user.objects.get(username = my_name)
-#     me.
+        user = My_user.objects.exclude(username = my_name).exclude(intention_to_fight = False)
+        random_opponent_player = random.choice(user)
+        #매치 객체 생성해야함...argument 정보 넣어주기
+        match = Match.objects.create(player1 = me , player2 = random_opponent_player)
+        match.save()
+        #무엇을 해야할까
     
-#     return render(request, 'profile.html')
+            
+
+@login_required
+def profile(request):
+    my_name = request.session["username"]
+    me = My_user.objects.get(username = my_name)
+    me.
+    
+    # return render(request, 'profile.html')
 
 
-#    if "username" in request.session:
-#        player_1 = My_user(username = "username")
-#       max_id = My_user.objects.all().aggregate(max_id = Max("id"))['max_id']
-#        pk = random.randint(1, max_id)
-#        player_2 = My_user.objects.get(pk = pk)
+    if "username" in request.session:
+       player_1 = My_user(username = "username")
+       max_id = My_user.objects.all().aggregate(max_id = Max("id"))['max_id']
+       pk = random.randint(1, max_id)
+       player_2 = My_user.objects.get(pk = pk)
