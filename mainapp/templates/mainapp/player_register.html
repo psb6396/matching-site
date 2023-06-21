@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Player Registration</title>
+</head>
+<body>
+    <h2>Player Registration</h2>
+    <form action="/player_registration/" method="POST">
+        {% csrf_token %}
+        <label for="id_username">Username:</label>
+        <input type="text" name="username" id="id_username">
+        <br>
+        <label for="id_password1">Password:</label>
+        <input type="password" name="password1" id="id_password1">
+        <br>
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>

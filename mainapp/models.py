@@ -3,19 +3,28 @@ from django.db import models
 
 
 class My_user(AbstractUser):
+    is_refree = models.BooleanField(default=False)
+    is_player = models.BooleanField(default=True)
+    
+    # user = models.PositiveSmallIntegerField()
+class Player(models.Model):
+    my_user = models.OneToOneField(My_user,related_name = "My_user", on_delete=models.CASCADE, primary_key=True)
     score = models.IntegerField(default = 1000)
     intention_to_fight = models.BooleanField(default = False)
 
-class Match(models.Model):
-    player1 = models.ManyToManyField('My_user', related_name = 'Match_player1')
-    player2 = models.ManyToManyField('My_user', related_name = 'Match_player2')
-#   where_to_fight = 
-#    match_establishment = models.BooleanField(default = False)
-    # are_you_winner = models.BooleanField(default=True) 
+class Refree(models.Model):
+    user = models.OneToOneField(My_user, on_delete=models.CASCADE, primary_key=True)
 
-class Profile(models.Model):
-    my_user = models.OneToOneField(My_user, on_delete = models.CASCADE)
-    matching_request_from_others = models.BooleanField(default=False)
-    # avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
-    # bio = models.TextField()
+
+class Match(models.Model):
+    player = models.ManyToManyField(Player, related_name = "Player", on_delete=models.CASCADE)
+
+    
+# class Matching_place(models.Model):
+    
+# class Profile(models.Model):
+#     my_user = models.OneToOneField(My_user, on_delete = models.CASCADE)
+#     matching_request_from_others = models.BooleanField(default=False)
+#     # avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
+#     # bio = models.TextField()
     
