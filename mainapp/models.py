@@ -14,10 +14,10 @@ class Player(models.Model):
 
 class Refree(models.Model):
     user = models.OneToOneField(My_user, on_delete=models.CASCADE, primary_key=True)
-    
 
-# class Match(models.Model):
-#     player = models.ManyToManyField(Player, related_name = "Player", on_delete=models.CASCADE)
+
+class Match(models.Model):
+    player = models.ManyToManyField(Player, related_name = "Player", on_delete=models.CASCADE)
 
     
 # class Matching_place(models.Model):
