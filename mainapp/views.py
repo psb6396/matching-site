@@ -61,12 +61,12 @@ def match_making(request):
     if request.user.is_authenicated:
         me = My_user.objects.get(pk = request.user.pk)
         if me.is_refree is False and me.is_player is True:
-            me.my_user.intention_to_fight = True
+            me.my_users.intention_to_fight = True
             user = My_user.objects.exclude(pk = request.user.pk).exclude(intention_to_fight = False)
             random_opponent_player = random.choice(user)
-            if random_opponent_player is not None:
+            # if random_opponent_player.my_user.
                 
-            # 상대없으면 상대 없다는 메세지 띄우고 홈페이지 돌아가기
+            # 싸우고 싶어하는 상대없으면 상대 없다는 메세지 띄우고 홈페이지 돌아가기
 
         # me.intention_to_fight = True
         # me.save()

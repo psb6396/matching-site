@@ -8,16 +8,16 @@ class My_user(AbstractUser):
     
     # user = models.PositiveSmallIntegerField()
 class Player(models.Model):
-    my_user = models.OneToOneField(My_user, related_name = "my_user", on_delete=models.CASCADE, primary_key=True)
+    my_users = models.OneToOneField(My_user,on_delete=models.CASCADE, related_name = "players", primary_key=True)
     score = models.IntegerField(default = 1000)
     intention_to_fight = models.BooleanField(default = False)
 
 class Refree(models.Model):
-    user = models.OneToOneField(My_user, on_delete=models.CASCADE, primary_key=True)
+    user = models.OneToOneField(My_user,on_delete=models.CASCADE, primary_key=True)
 
 
 class Match(models.Model):
-    player = models.ManyToManyField(Player, related_name = "Player", on_delete=models.CASCADE)
+    player = models.ManyToManyField(Player, related_name = "Player")
 
     
 # class Matching_place(models.Model):
