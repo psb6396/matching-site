@@ -59,18 +59,17 @@ def logout_request(request):
 #매칭 잡기 함수
 def match_making(request):
     if request.user.is_authenicated:
-        # me = My_user.objects.get(pk = request.user.pk)
-        # if me.is_refree is False and me.is_player is True:
-        me = request.user.players
-        me.intention_to_fight = True
-        user = My_user.objects.exclude(pk = request.user.pk).exclude(players__intention_to_fight = False)
-        random_opponent_player = random.choice(user)
+        me = My_user.objects.get(pk = request.user.pk)
+        me_player = Player(my_users = me, intention_to_fight = True)
+        player_that_doesnt_fight = Player.objects.exclude(my_users = me).exclude(intention_to_fight = False)
         if (random_opponent_player != None):
-            # 매칭이 만들어져야 하는데
+            random_opponent_player = random.choice(player_that_doesnt_fight)
             match = Match.objects.create()
+            match.player.add(me_player, random_opponent_player)
+        else:
             
             # 싸우고 싶어하는 상대없으면 상대 없다는 메세지 띄우고 홈페이지 돌아가기
-            # Player 모델이 필수적일까?
+            
         # me.intention_to_fight = True
         # me.save()
         # user = My_user.objects.exclude(username = my_name).exclude(intention_to_fight = False)
