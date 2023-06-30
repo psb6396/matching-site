@@ -5,6 +5,7 @@ import random
 from django.contrib.auth.decorators import login_required
 from .forms import PlayerRegistrationForm, RefereeRegistrationForm
 
+
 def index(request):
     return render(request, 'mainapp/index.html')
 
@@ -61,14 +62,15 @@ def match_making(request):
     if request.user.is_authenicated:
         me = My_user.objects.get(pk = request.user.pk)
         me_player = Player(my_users = me, intention_to_fight = True)
+        me_player.save()
         player_that_doesnt_fight = Player.objects.exclude(my_users = me).exclude(intention_to_fight = False)
         if (random_opponent_player != None):
             random_opponent_player = random.choice(player_that_doesnt_fight)
             match = Match.objects.create()
             match.player.add(me_player, random_opponent_player)
         else:
-            
-            # 싸우고 싶어하는 상대없으면 상대 없다는 메세지 띄우고 홈페이지 돌아가기
+            return render(request, 'mainapp/index.html', {'error': 'there is no opponent'})
+            #상대없으면 상대 없다는 메세지 띄우고 홈페이지 돌아가기
             
         # me.intention_to_fight = True
         # me.save()
