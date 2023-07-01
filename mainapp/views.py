@@ -72,17 +72,8 @@ def match_making(request):
             return render(request, 'mainapp/index.html', {'error': 'there is no opponent'})
             #상대없으면 상대 없다는 메세지 띄우고 홈페이지 돌아가기
             
-        # me.intention_to_fight = True
-        # me.save()
-        # user = My_user.objects.exclude(username = my_name).exclude(intention_to_fight = False)
-        # random_opponent_player = random.choice(user)
-
-        # if (random_opponent_player != None):
-        #     match = Match.objects.create(player1 = me , player2 = random_opponent_player)
-        #     match.save()
-
+def define_winner(request):
     
-            
 
 # @login_required
 # def profile(request):
