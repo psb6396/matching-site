@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import My_user, Player, Match
+from .models import My_user, Player, Match, Refree
 from django.contrib.auth import authenticate, login, logout, get_user_model
 import random
 from django.contrib.auth.decorators import login_required
@@ -45,7 +45,7 @@ def login_request(request):
     username = request.POST.get('username')
     password = request.POST.get('password')
     user = authenticate(request, username = username, password = password)
-    if user is not None:
+    if (user != None):
         login(request, user)
         return redirect('index')
     else:
@@ -73,7 +73,13 @@ def match_making(request):
             #상대없으면 상대 없다는 메세지 띄우고 홈페이지 돌아가기
             
 def define_winner(request):
-    
+    referee_verify = isinstance(request.user, Refree)
+    if (referee_verify == True):
+        # 누가 승자인지 접근하기 위해 Match 클래스에서 접근??해야하나
+        
+
+
+
 
 # @login_required
 # def profile(request):
