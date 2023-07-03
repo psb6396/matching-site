@@ -58,7 +58,7 @@ def logout_request(request):
     return render(request, 'mainapp/index.html')
 
 #매칭 잡기 함수
-def match_making(request):
+def match_request(request):
     if request.user.is_authenicated:
         me = My_user.objects.get(pk = request.user.pk)
         me_player = Player(my_users = me, intention_to_fight = True)
@@ -68,30 +68,18 @@ def match_making(request):
             random_opponent_player = random.choice(player_that_doesnt_fight)
             match = Match.objects.create()
             match.player.add(me_player, random_opponent_player)
+            # 추가해야할 코드 : 매치에 레프리정보도 담겨야 됨.
         else:
             return render(request, 'mainapp/index.html', {'error': 'there is no opponent'})
             #상대없으면 상대 없다는 메세지 띄우고 홈페이지 돌아가기
+
+def match_making(request):
+    
+    # referee가 제공하는 매칭 시간정보? 에 대한 내용?
             
 def define_winner(request):
     referee_verify = isinstance(request.user, Refree)
     if (referee_verify == True):
         # 누가 승자인지 접근하기 위해 Match 클래스에서 접근??해야하나
         
-
-
-
-
-# @login_required
-# def profile(request):
-#     my_name = request.session["username"]
-#     me = My_user.objects.get(username = my_name)
-#     me.
-    
-#     # return render(request, 'profile.html')
-
-
-#     if "username" in request.session:
-#        player_1 = My_user(username = "username")
-#        max_id = My_user.objects.all().aggregate(max_id = Max("id"))['max_id']
-#        pk = random.randint(1, max_id)
-#        player_2 = My_user.objects.get(pk = pk)
+# referee 입장에서 경기시간 제공하는 html 

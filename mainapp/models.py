@@ -18,7 +18,7 @@ class Refree(models.Model):
 
 class Match(models.Model):
     player = models.ManyToManyField(Player, related_name = "Player")
-    
+    referee = models.
     
 # class Matching_place(models.Model):
     
