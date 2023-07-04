@@ -12,7 +12,7 @@ class Player(models.Model):
     score = models.IntegerField(default = 1000)
     intention_to_fight = models.BooleanField(default = False)
 
-class Refree(models.Model):
+class Referee(models.Model):
     user = models.OneToOneField(My_user,on_delete=models.CASCADE, primary_key=True)
 
 
@@ -22,9 +22,9 @@ class Match(models.Model):
     
 # class Matching_place(models.Model):
     
-# class Profile(models.Model):
-#     my_user = models.OneToOneField(My_user, on_delete = models.CASCADE)
-#     matching_request_from_others = models.BooleanField(default=False)
-#     # avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
-#     # bio = models.TextField()
+class Profile(models.Model):
+    my_user = models.OneToOneField(My_user, on_delete = models.CASCADE)
+    matching_request_from_others = models.BooleanField(default=False)
+    avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
+    bio = models.TextField()
     

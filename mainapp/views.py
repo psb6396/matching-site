@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import My_user, Player, Match, Refree
+from .models import My_user, Player, Match, Referee
 from django.contrib.auth import authenticate, login, logout, get_user_model
 import random
 from django.contrib.auth.decorators import login_required
@@ -73,13 +73,22 @@ def match_request(request):
             return render(request, 'mainapp/index.html', {'error': 'there is no opponent'})
             #상대없으면 상대 없다는 메세지 띄우고 홈페이지 돌아가기
 
-def match_making(request):
+# def match_making(request):
     
-    # referee가 제공하는 매칭 시간정보? 에 대한 내용?
-            
-def define_winner(request):
-    referee_verify = isinstance(request.user, Refree)
-    if (referee_verify == True):
+#     # referee가 제공하는 매칭 시간정보? 에 대한 내용?
+#     # 위에 아예 매칭관련함수를 싹 바꿔야 할 수도 있음.
+# def define_winner(request):
+#     referee_verify = isinstance(request.user, Refree)
+#     if (referee_verify == True):
         # 누가 승자인지 접근하기 위해 Match 클래스에서 접근??해야하나
         
 # referee 입장에서 경기시간 제공하는 html 
+
+
+def profile(request):
+    referee_verify = isinstance(request.user, Referee)
+    if (referee_verify != )
+    me = My_user.objects.get(username = my_name)
+    me.
+    #프로필에 있어야 할 거?? 뭐가 있지.. 자기 매칭 잡혔는지를 확인할 수 있어야 함
+    return render(request, 'profile.html')
