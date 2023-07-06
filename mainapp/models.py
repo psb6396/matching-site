@@ -6,7 +6,6 @@ class My_user(AbstractUser):
     is_refree = models.BooleanField(default=False)
     is_player = models.BooleanField(default=False)
     
-    # user = models.PositiveSmallIntegerField()
 class Player(models.Model):
     my_users = models.OneToOneField(My_user,on_delete=models.CASCADE, related_name = "players", primary_key=True)
     score = models.IntegerField(default = 1000)
@@ -18,7 +17,7 @@ class Referee(models.Model):
 
 class Match(models.Model):
     player = models.ManyToManyField(Player, related_name = "Player")
-    referee = models.
+    referee = models.ManyToManyField(Referee, related_name = "Referee")
     
 # class Matching_place(models.Model):
     
