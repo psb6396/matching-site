@@ -20,7 +20,6 @@ class Match(models.Model):
     referee = models.ManyToManyField(Referee, related_name = "Referee")
     
 # class Matching_place(models.Model):
-    
 class Profile(models.Model):
     my_user = models.OneToOneField(My_user, on_delete = models.CASCADE)
     matching_request_from_others = models.BooleanField(default=False)

@@ -19,11 +19,12 @@ def player_registration(request):
             user = form.save(commit=False)
             user.is_player = True
             user.save()
-            # Additional logic or redirect here
+            player = Player(my_users = user)
+            player.save()
+            # My_user로부터 나온 Player객체도 생성.
             return redirect('index')  # Redirect to a success page
     else:
         form = PlayerRegistrationForm()
-    
     return render(request, 'index.html', {'form': form})
 
 def referee_registration(request):
@@ -60,9 +61,9 @@ def logout_request(request):
 #매칭 잡기 함수
 def match_request(request):
     if request.user.is_authenicated:
-        me = My_user.objects.get(pk = request.user.pk)
-        me_player = Player(my_users = me, intention_to_fight = True)
-        me_player.save()
+        # me = My_user.objects.get(pk = request.user.pk)
+        me = request.user
+        me_player = Player.objects.get(my_users = me)
         player_that_doesnt_fight = Player.objects.exclude(my_users = me).exclude(intention_to_fight = False)
         if (random_opponent_player != None):
             random_opponent_player = random.choice(player_that_doesnt_fight)
