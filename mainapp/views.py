@@ -89,8 +89,11 @@ def match_request(request):
 def profile(request):
     me = request.user
     if (me.is_referee == False):
-        me.
-
+        me_player = Player.objects.get(my_users = me)
+        me_player_profile = {'me_player' : me_player}
+        return render(request, 'profile.html', me_player_profile)
+    elif (me.is_referee == True):
         
+    #다른곳에서 프로필정보를 만들어야함    
     #프로필에 있어야 할 거?? 뭐가 있지.. 자기 매칭 잡혔는지를 확인할 수 있어야 함
     return render(request, 'profile.html')
