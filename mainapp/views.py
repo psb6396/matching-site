@@ -76,7 +76,6 @@ def logout_request(request):
 def profile(request):
     me = request.user
     if (me.is_referee == False):
-        me_player = Player.objects.get(my_users = me)
         me_player_profile = {'me_player' : me_player}
         return render(request, 'profile.html', me_player_profile)
     elif (me.is_referee == True):
