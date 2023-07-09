@@ -2,17 +2,14 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-class My_user(AbstractUser):
-    is_refree = models.BooleanField(default=False)
-    
-class Player(models.Model):
-    my_users = models.OneToOneField(My_user,on_delete=models.CASCADE, related_name = "players", primary_key=True)
+class Player(AbstractUser):
     score = models.IntegerField(default = 1000)
     intention_to_fight = models.BooleanField(default = False)
-    matching_request_from_others = models.BooleanField(default=False)
+    matching_request_from_others = models.BooleanField(default=False)    
+    is_refree = models.BooleanField(default=False)
 
 class Referee(models.Model):
-    user = models.OneToOneField(My_user,on_delete=models.CASCADE, primary_key=True)
+    user = models.OneToOneField(Player,on_delete=models.CASCADE, primary_key=True)
 
 
 class Match(models.Model):

@@ -1,11 +1,11 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .models import My_user
+from .models import Player
 
-class My_userAdmin(UserAdmin):
+class PlayerAdmin(UserAdmin):
     list_display = (
-        'username', 'is_staff'
+        'username', 'password', 'is_referee'
         )
 
-admin.site.register(My_user, My_userAdmin)
+admin.site.register(Player, PlayerAdmin)

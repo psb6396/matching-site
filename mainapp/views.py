@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect
-from .models import My_user, Player, Match, Referee
+from .models import Player, Match, Referee
 from django.contrib.auth import authenticate, login, logout, get_user_model
 import random
 from django.contrib.auth.decorators import login_required
-from .forms import PlayerRegistrationForm, RefereeRegistrationForm
 
 
 def index(request):
@@ -14,32 +13,21 @@ def register(request):
 
 def player_registration(request):
     if request.method == 'POST':
-        form = PlayerRegistrationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.is_player = True
-            user.save()
-            player = Player(my_users = user)
-            player.save()
-            # My_user로부터 나온 Player객체도 생성.
-            return redirect('index')  # Redirect to a success page
-    else:
-        form = PlayerRegistrationForm()
-    return render(request, 'index.html', {'form': form})
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = Player.objects.create_user(password = password , username = username)
+        user.save()
+    return render(request, 'mainapp/index.html')
 
 def referee_registration(request):
     if request.method == 'POST':
-        form = RefereeRegistrationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.is_referee = True
-            user.save()
-            # Additional logic or redirect here
-            return redirect('index')  # Redirect to a success page
-    else:
-        form = RefereeRegistrationForm()
-    
-    return render(request, 'referee_registration.html', {'form': form})
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        player = Player.objects.create_user(password = password , username = username)
+        referee = Referee(user = player)
+        referee.save()
+    return render(request, 'mainapp/index.html')
+
 
 #로그인 함수
 def login_request(request):
@@ -54,7 +42,6 @@ def login_request(request):
 
 #로그아웃 함수
 def logout_request(request):
-    # del request.session["username"]
     logout(request)
     return render(request, 'mainapp/index.html')
 
@@ -87,7 +74,7 @@ def match_request(request):
 
 
 def profile(request):
-    me = request.user
+    me = request.user   
     if (me.is_referee == False):
         me_player = Player.objects.get(my_users = me)
         me_player_profile = {'me_player' : me_player}
