@@ -38,7 +38,7 @@ def login_request(request):
         login(request, user)
         return redirect('index')
     else:
-        return render(request, 'mainapp/index.html', {'error': 'Invalid username or password.'})
+        return render(request, 'mainapp/register.html', {'error': 'Invalid username or password.'})
 
 #로그아웃 함수
 def logout_request(request):
@@ -46,19 +46,19 @@ def logout_request(request):
     return render(request, 'mainapp/index.html')
 
 #매칭 잡기 함수
-def match_request(request):
-    if request.user.is_authenicated:
-        # me = My_user.objects.get(pk = request.user.pk)
-        me = request.user
-        me_player = Player.objects.get(my_users = me)
-        player_that_doesnt_fight = Player.objects.exclude(my_users = me).exclude(intention_to_fight = False)
-        if (random_opponent_player != None):
-            random_opponent_player = random.choice(player_that_doesnt_fight)
-            match = Match.objects.create()
-            match.player.add(me_player, random_opponent_player)
-            # 추가해야할 코드 : 매치에 레프리정보도 담겨야 됨.
-        else:
-            return render(request, 'mainapp/index.html', {'error': 'there is no opponent'})
+# def match_request(request):
+#     if request.user.is_authenicated:
+#         # me = My_user.objects.get(pk = request.user.pk)
+#         me = request.user
+#         me_player = Player.objects.get(my_users = me)
+#         player_that_doesnt_fight = Player.objects.exclude(my_users = me).exclude(intention_to_fight = False)
+#         if (random_opponent_player != None):
+#             random_opponent_player = random.choice(player_that_doesnt_fight)
+#             match = Match.objects.create()
+#             match.player.add(me_player, random_opponent_player)
+#             # 추가해야할 코드 : 매치에 레프리정보도 담겨야 됨.
+#         else:
+#             return render(request, 'mainapp/index.html', {'error': 'there is no opponent'})
             #상대없으면 상대 없다는 메세지 띄우고 홈페이지 돌아가기
 
 # def match_making(request):
@@ -74,13 +74,13 @@ def match_request(request):
 
 
 def profile(request):
-    me = request.user   
+    me = request.user
     if (me.is_referee == False):
         me_player = Player.objects.get(my_users = me)
         me_player_profile = {'me_player' : me_player}
         return render(request, 'profile.html', me_player_profile)
     elif (me.is_referee == True):
         
-    #다른곳에서 프로필정보를 만들어야함    
+    #다른곳에서 프로필정보를 만들어야함 그래도 일단은 프로필 정보 띄우기 ㅇㅇ
     #프로필에 있어야 할 거?? 뭐가 있지.. 자기 매칭 잡혔는지를 확인할 수 있어야 함
     return render(request, 'profile.html')
