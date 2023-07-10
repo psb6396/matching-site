@@ -83,7 +83,7 @@ def profile(request):
             me_referee = Referee.objects.get(user = me)
             me_profile = {'me_referee' : me_referee,
                           'me' : me
-                          }
+                            }
             
     return render(request, 'profile.html', me_profile)
 
