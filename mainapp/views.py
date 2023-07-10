@@ -77,11 +77,15 @@ def profile(request):
     if request.user.is_authenticated:
         me = request.user
         if (me.is_referee == False):
-            me_player_profile = {'me' : me}
-            return render(request, 'profile.html', me_player_profile)
+            me_profile = {'me' : me}
+            
         elif (me.is_referee == True):
             me_referee = Referee.objects.get(user = me)
+            me_profile = {'me_referee' : me_referee,
+                          'me' : me
+                          }
+            
+    return render(request, 'profile.html', me_profile)
 
     #다른곳에서 프로필정보를 만들어야함 그래도 일단은 프로필 정보 띄우기 ㅇㅇ
     #프로필에 있어야 할 거?? 뭐가 있지.. 자기 매칭 잡혔는지를 확인할 수 있어야 함
-    return render(request, 'profile.html')

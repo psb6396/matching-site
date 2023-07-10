@@ -10,7 +10,7 @@ class Player(AbstractUser):
 
 class Referee(models.Model):
     user = models.OneToOneField(Player,on_delete=models.CASCADE, primary_key=True)
-
+    
 
 class Match(models.Model):
     player = models.ManyToManyField(Player, related_name = "Player")
