@@ -5,11 +5,11 @@
     </head>
     <body>
         {% csrf_token %}
-        {% if request.session.username %}
-        <p>hi! {{request.session.username}}</p>
+        {% if request.user.username %}
+        <p>hi! {{request.user.username}}</p>
         <a href="/logout_request">log out</a>
-        <p><a href="/match_making">make a match</a></p>
-        
+        <p><a href="/match_making">make a match</a></p> <br>
+        <a href = "/profile"> profile </a>
 
         {% else %}
         <form action="/login_request/" method="post">
