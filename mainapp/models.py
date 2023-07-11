@@ -7,11 +7,11 @@ class Player(AbstractUser):
     intention_to_fight = models.BooleanField(default = False)
     matching_request_from_others = models.BooleanField(default=False) 
     # 매칭 요청(누가 했는지에 대한 정보는 어떡하지??)   
-    is_refree = models.BooleanField(default=False)
+    is_referee = models.BooleanField(default=False)
 
 class Referee(models.Model):
     user = models.OneToOneField(Player,on_delete=models.CASCADE, primary_key=True)
-    
+    gym = models.CharField(max_length = 50)
 
 class Match(models.Model):
     player = models.ManyToManyField(Player, related_name = "Player")
