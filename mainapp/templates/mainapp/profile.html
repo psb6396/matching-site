@@ -4,11 +4,11 @@
             <title>profile</title>
         </head>
         <body>
-            {% if me %}
             hello, {{me.username}} <br>
             score : {{me.score}}
             intention to fight : {{me.intention_to_fight}}
-
-            <!-- 심판이면 위에거에 더해서 추가적으로 심판정보를 붙일수있나?? -->
+ 
+            {% if me_referee %}
+            
         </body>
     </html>
