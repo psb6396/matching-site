@@ -3,21 +3,22 @@ from .models import Player, Match, Referee
 from django.contrib.auth import authenticate, login, logout, get_user_model
 import random
 from django.contrib.auth.decorators import login_required
-from django.template import RequestContext
 
 def index(request):
     return render(request, 'mainapp/index.html')
 
-def register(request):
-    return render(request, 'mainapp/register.html')
+# def register(request):
+#     return render(request, 'mainapp/register.html')
 
 def player_register(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        user = Player.objects.create_user(password = password , username = username)
-        user.save()
-    return render(request, 'mainapp/index.html')
+        Player.objects.create_user(password = password , username = username)
+        return render(request, 'mainapp/index.html')
+    else:
+        return redirect('player_register')
+
 
 def referee_register(request):
     if request.method == 'POST':
@@ -26,7 +27,9 @@ def referee_register(request):
         player = Player.objects.create_user(password = password , username = username)
         referee = Referee(user = player)
         referee.save()
-    return render(request, 'mainapp/index.html')
+        return render(request, 'mainapp/index.html')
+    else:
+        return redirect('referee_register')
 
 
 #로그인 함수
