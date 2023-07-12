@@ -24,7 +24,7 @@ def referee_register(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        player = Player.objects.create_user(password = password , username = username)
+        player = Player.objects.create_user(password = password , username = username, is_referee = True)
         referee = Referee(user = player)
         referee.save()
         return render(request, 'mainapp/index.html')
