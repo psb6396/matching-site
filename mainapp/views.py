@@ -17,7 +17,7 @@ def player_register(request):
         Player.objects.create_user(password = password , username = username)
         return render(request, 'mainapp/index.html')
     else:
-        return redirect('player_register')
+        return render(request, 'mainapp/player_register.html')
 
 
 def referee_register(request):
@@ -39,7 +39,7 @@ def login_request(request):
     user = authenticate(request, username = username, password = password)
     if (user != None):
         login(request, user)
-        return render(request, 'index.html')
+        return render(request, 'mainapp/index.html')
     else:
         return render(request, 'mainapp/index.html', {'error': 'Invalid username or password.'})
 
