@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Player, Referee
+from .models import My_user
 from django.contrib.auth import authenticate, login, logout
 import random
 from django.contrib.auth.decorators import login_required
@@ -12,7 +12,7 @@ def player_register(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        Player.objects.create_user(password = password , username = username)
+        My_user.objects.create_user(password = password, username = username, role='player')
         return render(request, 'mainapp/index.html')
     else:
         return render(request, 'mainapp/player_register.html')
@@ -22,7 +22,7 @@ def referee_register(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        Referee.objects.create_user(password = password , username = username)
+        My_user.objects.create_user(password = password, username = username, role='referee')
         return render(request, 'mainapp/index.html')
     else:
         return render(request, 'mainapp/referee_register.html')
@@ -33,7 +33,7 @@ def login_request(request):
     password = request.POST.get('password')
     user = authenticate(request, username = username, password = password) 
     if user is not None:
-        login(request, user = user)
+        login(request, user)
         return render(request, 'mainapp/index.html')
     else:
         messages.error(request, "login error")
@@ -44,9 +44,9 @@ def logout_request(request):
     logout(request)
     return render(request, 'mainapp/index.html')
 
-@login_required
-def profile(request):
-    me = request.user
+# @login_required
+# def profile(request):
+#     me = request.user
     
     
     

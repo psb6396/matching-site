@@ -1,18 +1,12 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .models import Player, Referee
+from .models import My_user
 
-class PlayerAdmin(UserAdmin):
+class My_userAdmin(UserAdmin):
     list_display = (
         'username', 'password'
         )
     
-class RefereeAdmin(UserAdmin):
-    list_display = (
-        'username', 'password'
-    )
 
-
-admin.site.register(Player, PlayerAdmin)
-admin.site.register(Referee, RefereeAdmin)
+admin.site.register(My_user, My_userAdmin)
