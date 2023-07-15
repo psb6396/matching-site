@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
-from .models import Player, Match, Referee
-from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.shortcuts import render
+from .models import Player, Referee
+from django.contrib.auth import authenticate, login, logout
 import random
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
