@@ -33,7 +33,8 @@ def login_request(request):
     password = request.POST.get('password')
     user = authenticate(request, username = username, password = password) 
     if user is not None:
-        login(request, user)
+        if user.is_active:
+            login(request, user)
         return render(request, 'mainapp/index.html')
     else:
         messages.error(request, "login error")
