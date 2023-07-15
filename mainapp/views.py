@@ -31,13 +31,13 @@ def referee_register(request):
 def login_request(request):
     username = request.POST.get('username')
     password = request.POST.get('password')
-    user = authenticate(request, username = username, password = password) 
+    user = authenticate(username = username, password = password) 
     if user is not None:
-        if user.is_active:
-            login(request, user)
+        login(request, user)
+        print("login_success")
         return render(request, 'mainapp/index.html')
     else:
-        messages.error(request, "login error")
+        print("login error or authenticate error")
         return render(request, 'mainapp/index.html')
 
 #로그아웃 함수
