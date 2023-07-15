@@ -4,11 +4,10 @@
         <title>index</title>
     </head>
     <body>
-        {% csrf_token %}
-        {% if request.user.username %}
-        <p>hi! {{request.user.username}}</p>
-        <a href="/logout_request">log out</a>
-        <p><a href="/match_making">make a match</a></p> <br>
+        {% if user.is_authenticated %}
+        <p>hi! {{user.username}}</p>
+        <a href="/logout_request">log out</a> <br>
+        <a href="/match_making">make a match</a> <br>
         <a href = "/profile"> profile </a>
         
         {% else %}

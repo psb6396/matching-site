@@ -5,7 +5,7 @@ from .models import Player
 
 class PlayerAdmin(UserAdmin):
     list_display = (
-        'username', 'password', 'is_referee'
+        'username', 'password'
         )
 
 admin.site.register(Player, PlayerAdmin)

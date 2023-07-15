@@ -3,12 +3,10 @@ from .models import Player, Match, Referee
 from django.contrib.auth import authenticate, login, logout, get_user_model
 import random
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 def index(request):
     return render(request, 'mainapp/index.html')
-
-# def register(request):
-#     return render(request, 'mainapp/register.html')
 
 def player_register(request):
     if request.method == 'POST':
@@ -24,24 +22,21 @@ def referee_register(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        player = Player.objects.create_user(password = password , username = username, is_referee = True)
-        referee = Referee(user = player)
-        referee.save()
+        Referee.objects.create_user(password = password , username = username)
         return render(request, 'mainapp/index.html')
     else:
-        return redirect('referee_register')
-
+        return render(request, 'mainapp/referee_register.html')
 
 #로그인 함수
 def login_request(request):
     username = request.POST.get('username')
     password = request.POST.get('password')
-    user = authenticate(request, username = username, password = password)
-    if (user != None):
-        login(request, user)
+    user = authenticate(request, username = username, password = password) 
+    if user is not None:
+        login(request, user = user)
         return render(request, 'mainapp/index.html')
     else:
-        return render(request, 'mainapp/index.html', {'error': 'Invalid username or password.'})
+        return render(request, 'mainapp/index.html')
 
 #로그아웃 함수
 def logout_request(request):
