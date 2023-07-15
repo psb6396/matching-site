@@ -5,11 +5,9 @@ from django.db import models
 class Player(AbstractUser):
     score = models.IntegerField(default = 1000)
     intention_to_fight = models.BooleanField(default = False)
-    # matching_request_from_others = models.BooleanField(default=False) 
-    # 매칭 요청(누가 했는지에 대한 정보는 어떡하지??)   
-    # is_referee = models.BooleanField(default=False)
     
-class Referee(Player):
+    
+class Referee(Player, AbstractUser):
     gym = models.CharField(max_length=50)
     available_time = models.DateTimeField
 

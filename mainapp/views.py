@@ -36,6 +36,7 @@ def login_request(request):
         login(request, user = user)
         return render(request, 'mainapp/index.html')
     else:
+        messages.error(request, "login error")
         return render(request, 'mainapp/index.html')
 
 #로그아웃 함수
@@ -46,14 +47,26 @@ def logout_request(request):
 @login_required
 def profile(request):
     me = request.user
-    if (me.is_referee == False):
-        me_profile = {'me' : me}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    # me = request.user
+    # if (me.is_referee == False):
+    #     me_profile = {'me' : me}
         
-    elif (me.is_referee == True):        
-        me_referee = Referee.objects.get(user = me)
-        me_profile = {'me_referee' : me_referee, 'me' : me }
+    # elif (me.is_referee == True):        
+    #     me_referee = Referee.objects.get(user = me)
+    #     me_profile = {'me_referee' : me_referee, 'me' : me }
             
-    return render(request, 'mainapp/profile.html', me_profile)
+    # return render(request, 'mainapp/profile.html', me_profile)
 
     #다른곳에서 프로필정보를 만들어야함 그래도 일단은 프로필 정보 띄우기 ㅇㅇ
     #프로필에 있어야 할 거?? 뭐가 있지.. 자기 매칭 잡혔는지를 확인할 수 있어야 함

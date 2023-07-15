@@ -4,6 +4,7 @@
         <title>index</title>
     </head>
     <body>
+        {% csrf_token %}
         {% if user.is_authenticated %}
         <p>hi! {{user.username}}</p>
         <a href="/logout_request">log out</a> <br>
