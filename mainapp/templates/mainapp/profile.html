@@ -9,6 +9,9 @@
             score : {{me.score}} <br>
             intention to fight : {{me.intention_to_fight}} <br>         
             {% comment %} 아래 심판의 체육관 정보 {% endcomment %}
+
+            {% if me_referee %}
             {{me_referee.gym}} <br>
+            <!-- 심판 체육관 링크 만들어두기 -->
         </body>
     </html>
