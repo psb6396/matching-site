@@ -56,7 +56,10 @@ def profile(request):
 
 @login_required
 def gym_time(request):
-    
+    if request.method == 'POST':
+        pass
+    else:
+        return render(request, 'mainapp/gym_time.html')
     #다른곳에서 프로필정보를 만들어야함 그래도 일단은 프로필 정보 띄우기 ㅇㅇ
     #프로필에 있어야 할 거?? 뭐가 있지.. 자기 매칭 잡혔는지를 확인할 수 있어야 함
 #매칭 잡기 함수
