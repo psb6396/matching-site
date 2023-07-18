@@ -6,13 +6,9 @@
 </head>
 <body>
     <form action="/gym_time/" method="post">
-        <label>
-            Enter your gym's available date:
-            <input type="date" name="date"><br>
-          </label>
-          <input type="time" name="starting_time"> : starting_time<br>
-          <input type="time" name="ending_time"> : ending_time<br>
-        <p><button>Submit</button></p>
+            <label>Enter your gym's available date and time:</label>
+            <input id="datetime" type="datetime-local" name="datetime" min=""/>
+            <button type="submit">submit</button>
     </form>
 </body>
 </html>
