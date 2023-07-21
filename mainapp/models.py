@@ -11,6 +11,6 @@ class My_user(AbstractUser):
     score = models.IntegerField(default=1000)
     intention_to_fight = models.BooleanField(default=False)
     gym = models.CharField(max_length=50)
-    available_time = models.DateTimeField(null=True, blank=True)
-    
-
+    available_time = models.DateTimeField(null=True)
+    start_date = models.DateTimeField(null=True)
+    end_date = models.DateTimeField(null=True)

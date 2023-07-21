@@ -4,7 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 import random
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-import datetime
+from datetime import datetime, timedelta
+from .forms import ExampleForm
 
 def index(request):
     return render(request, 'mainapp/index.html')
@@ -57,13 +58,15 @@ def profile(request):
 
 @login_required
 def gym_time(request):
-    min_time = datetime.timedelta()
-    if request.method == 'POST':
-            
-    else:    
-        return render(request, 'mainapp/gym_time.html')            
+    form = ExampleForm()
+    context = {'form': form}   
+    return render(request, 'mainapp/gym_time.html', context)
+         
     #다른곳에서 프로필정보를 만들어야함 그래도 일단은 프로필 정보 띄우기 ㅇㅇ
-    #프로필에 있어야 할 거?? 뭐가 있지.. 자기 매칭 잡혔는지를 확인할 수 있어야 함
+    # now = datetime.now()
+    # min_time = now + timedelta(days = 3)
+    # context = {'min_time' : min_time}
+    # #프로필에 있어야 할 거?? 뭐가 있지.. 자기 매칭 잡혔는지를 확인할 수 있어야 함
 #매칭 잡기 함수
 # def match_request(request):
 #     if request.user.is_authenicated:
