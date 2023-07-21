@@ -58,9 +58,9 @@ def profile(request):
 
 @login_required
 def gym_time(request):
-    form = ExampleForm()
-    context = {'form': form}   
-    return render(request, 'mainapp/gym_time.html', context)
+    # form = ExampleForm()
+    # context = {'form': form}   
+    # return render(request, 'mainapp/gym_time.html', context)
          
     #다른곳에서 프로필정보를 만들어야함 그래도 일단은 프로필 정보 띄우기 ㅇㅇ
     # now = datetime.now()
