@@ -56,17 +56,16 @@ def profile(request):
 
 @login_required
 def gym_time(request):
-    now = datetime.now()
-    min_time = now + timedelta(days = 1)
-    max_time = now + timedelta(days = 14)
-    context = {'min_time' : min_time, 'max_time' : max_time}
-    
-    if request.method == 'POST':
-        pass
-    else:    
-        return render(request, 'mainapp/gym_time.html', context)
+    # now = datetime.now()
+    # min_time = now + timedelta(days = 1)
+    # max_time = now + timedelta(days = 14)
+    # context = {'min_time' : min_time, 'max_time' : max_time}
+    # if request.method == 'POST':
+    #     # 뭐해야하지??
+    #     # 
+    # else:    
+    #     return render(request, 'mainapp/gym_time.html', context)
 
-#프로필에 있어야 할 거?? 뭐가 있지.. 자기 매칭 잡혔는지를 확인할 수 있어야 함
 #매칭 잡기 함수
 # def match_request(request):
 #     if request.user.is_authenicated:

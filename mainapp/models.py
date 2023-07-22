@@ -14,3 +14,6 @@ class My_user(AbstractUser):
     available_time = models.DateTimeField(null=True)
     start_date = models.DateTimeField(null=True)
     end_date = models.DateTimeField(null=True)
+    
+class Match(models.Model):
+    player = 

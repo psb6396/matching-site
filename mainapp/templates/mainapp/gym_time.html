@@ -3,10 +3,107 @@
     <title>gym time</title>
 </head>
 <body>
-    <form method="POST" action="/gym_time/">
+    <style type="text/css">
+        .tg  {border-collapse:collapse;border-spacing:0;}
+        .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+          overflow:hidden;padding:10px 5px;word-break:normal;}
+        .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+          font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+        .tg .tg-0lax{text-align:left;vertical-align:top}
+        </style>
+        <table class="tg">
+        <thead>
+          <tr>
+            {% comment %} 여기가 1열 {% endcomment %}
+            <th class="tg-0lax">aㄴㅇㄹ</th>
+            <th class="tg-0lax"></th>
+            <th class="tg-0lax"></th>
+            <th class="tg-0lax"></th>
+            <th class="tg-0lax"></th>
+            <th class="tg-0lax"></th>
+            <th class="tg-0lax"></th>
+            <th class="tg-0lax"></th>
+            <th class="tg-0lax"></th>
+            <th class="tg-0lax"></th>
+            <th class="tg-0lax"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            {% comment %} 여기가 2열 {% endcomment %}
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax">aㄴㅇㄹ</td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+          </tr>
+          <tr>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+          </tr>
+          <tr>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+          </tr>
+          <tr>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+          </tr>
+          <tr>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+          </tr>
+        </tbody>
+        </table>
+
+
+
+    {% comment %} <form method="POST" action="/gym_time/">
         {% csrf_token %}
         <input type="datetime-local" id="start_date" name="start_date" min="{{min_time|date:'Y-m-d\TH:i'}}" max="{{max_time|date:'Y-m-d\TH:i'}}">
         <input type="submit" value="Submit">
-    </form>
+    </form> {% endcomment %}
 </body>
 </html>
