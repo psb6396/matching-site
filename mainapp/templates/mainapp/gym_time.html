@@ -5,12 +5,7 @@
 <body>
     <form method="POST" action="/gym_time/">
         {% csrf_token %}
-        
-        {{form}}<br><br>
-            <label for="start_date">start_date:</label>
-            <input type="date" id="start_date" name="start_date">
-      
-        
+        <input type="datetime-local" id="start_date" name="start_date" min="{{min_time|date:'Y-m-d\TH:i'}}" max="{{max_time|date:'Y-m-d\TH:i'}}">
         <input type="submit" value="Submit">
     </form>
 </body>
