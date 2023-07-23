@@ -56,6 +56,7 @@ def profile(request):
 
 @login_required
 def gym_time(request):
+    pass
     # now = datetime.now()
     # min_time = now + timedelta(days = 1)
     # max_time = now + timedelta(days = 14)
