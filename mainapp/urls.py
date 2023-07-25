@@ -10,6 +10,6 @@ urlpatterns = [
     path('profile/', views.profile, name = 'profile'),
     path('login_request/', views.login_request, name= "login"),
     path("logout_request/", views.logout_request, name= "logout"),
-    path("gym_time/", views.gym_time, name = 'gym_time')
+    path("my_gym_time/", views.my_gym_time, name = 'my_gym_time')
 #    path("match_making/", views.match_making, name= "match_making"),
 ]

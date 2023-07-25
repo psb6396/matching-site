@@ -1,9 +1,11 @@
 from django.shortcuts import render
-from .models import My_user
+from .models import My_user, Match
 from django.contrib.auth import authenticate, login, logout
 import random
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timedelta
+
+
 
 def index(request):
     return render(request, 'mainapp/index.html')
@@ -55,8 +57,11 @@ def profile(request):
     return render(request, 'mainapp/profile.html', context)
 
 @login_required
-def gym_time(request):
-    pass
+def my_gym_time(request):
+    match_time = Match.objects.all()
+    match_context = {'match_time' : match_time}
+    return render(request, 'mainapp/gym_time.html', match_context)
+
     # now = datetime.now()
     # min_time = now + timedelta(days = 1)
     # max_time = now + timedelta(days = 14)
