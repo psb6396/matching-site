@@ -58,17 +58,16 @@ def profile(request):
 
 @login_required
 def my_gym_time(request):
-    match_time = Match.objects.all()
-    match_context = {'match_time' : match_time}
-    return render(request, 'mainapp/gym_time.html', match_context)
-
+    me = request.user
+    my_match = Match.objects.get(my_user = me)
+    
+    
     # now = datetime.now()
-    # min_time = now + timedelta(days = 1)
-    # max_time = now + timedelta(days = 14)
-    # context = {'min_time' : min_time, 'max_time' : max_time}
+    # min_date = now + timedelta(days = 1)
+    # max_date = now + timedelta(days = 14)
+    # context = {'min_date' : min_date, 'max_date' : max_date}
     # if request.method == 'POST':
-    #     # 뭐해야하지??
-    #     # 
+    #     pass
     # else:    
     #     return render(request, 'mainapp/gym_time.html', context)
 
