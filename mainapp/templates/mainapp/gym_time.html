@@ -3,24 +3,14 @@
     <title>my_gym time</title>
 </head>
 <body>
-    {% for i in match_time %}
-    <tr>
-        
-        <th class="tg-0lax">{{i.date}}</th>
-        {% for time_list in i %}
-        <th class="tg-0lax">{{time_list.time}}</th>
-    </tr>
+    <table class="tg">
+        <tbody>
+            {% for i in date_variable %}
+            <tr>
+                <td class="tg-0pky">{{ i|date:"D d" }}</td>
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
     
 </body>
-<!-- </html><form>
-    <input type="date" id="start" name="trip-start"
-       value="2018-07-22"
-       min="{{min_date}}" max="{{max_date}}">
-    
-       <select name="from" id="from">
-        <option value="time1">time1</option>
-        <option value="time2">time2</option>
-        <option value="time3">time3</option>
-        <option value="time4">time4</option>
-        </select>
-    </form> -->

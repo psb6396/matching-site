@@ -27,7 +27,5 @@ class Match(models.Model):
         (time4, 'Time4'),
     ]
     time = models.CharField(max_length=10, choices=Time_choices)
-    # 그럼 날짜는? 어떻게?
     date = models.DateField()
-    # 따로 views.py 에서 신규객체 create할때 포인트를 줘야할듯
     my_user = models.ManyToManyField(My_user)
