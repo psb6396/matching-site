@@ -13,7 +13,6 @@ class My_user(AbstractUser):
     # available_time = models.DateTimeField(null=True)
     start_date = models.DateTimeField(null=True)
     end_date = models.DateTimeField(null=True)
-    # match = models.ForeignKey(Match, on_delete=models.CASCADE)
     
 class Match(models.Model):
     time1 = 'time1'
