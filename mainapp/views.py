@@ -61,13 +61,14 @@ def profile(request):
 def my_gym_time(request):
     me = request.user
     now = datetime.now()
-    date_variable = [(now + timedelta(days = i)) for i in range(7)]
-    for j in date_variable:
-        my_match = Match.objects.get(my_user = me, time = j)
-        
-    context = {'date_variable' : date_variable}
+    week = [(now + timedelta(days = i)) for i in range(7)]
+    time_choices = Match.Time_choices
+    match_list = []
+    for j in week:
+        match_date_var = Match.objects.get(my_user = me, date = j)
+        match_list.append(match_date_var)
     
-    
+    context = {'week' : week, 'time_choices' : time_choices, 'match_list' : match_list}
     
     return render(request, 'mainapp/gym_time.html', context)
     

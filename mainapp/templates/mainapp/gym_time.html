@@ -5,9 +5,10 @@
 <body>
     <table class="tg">
         <tbody>
-            {% for i in date_variable %}
+            {% for i in week %}
             <tr>
                 <td class="tg-0pky">{{ i|date:"D d" }}</td>
+                {% for j in match_list %}
                 
                 {% endfor %}
             </tr>
