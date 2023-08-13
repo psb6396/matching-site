@@ -58,21 +58,19 @@ def profile(request):
 
 
 @login_required
-def my_gym_time(request):
+def match_make(request):
     me = request.user
     now = datetime.now()
-    week = [(now + timedelta(days = i)) for i in range(7)]
-    time_choices = Match.Time_choices
-    match_list = []
-    for j in week:
-        match_date_var = Match.objects.get(my_user = me, date = j)
-        match_list.append(match_date_var)
-    
-    context = {'week' : week, 'time_choices' : time_choices, 'match_list' : match_list}
-    
-    return render(request, 'mainapp/gym_time.html', context)
-    
-def match_make(request):
+    max_date = now + timedelta(days = 7)
+    context = {'now' : now, 'max_date' : max_date}
+    if request.method == 'POST':
+        date = request.POST.get('gym_date')
+        time = request.POST.get('gym_time')
+        created_match = Match(time = time, date = date)
+        created_match.save()
+        return render(request, 'mainapp/gym_time.html', context)
+    else:    
+        return render(request, 'mainapp/gym_time.html', context)
     
 
 #매칭 잡기 함수

@@ -26,5 +26,6 @@ class Match(models.Model):
         (time4, 'Time4'),
     ]
     time = models.CharField(max_length=10, choices=Time_choices)
-    date = models.DateField()
+    date = models.DateField(auto_now=False, auto_now_add=False)
     my_user = models.ManyToManyField(My_user)
+    #잡생각에 빡세게 안하기

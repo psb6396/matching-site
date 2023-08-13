@@ -1,18 +1,23 @@
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <title>my_gym time</title>
+    <title>My Gym Time</title>
 </head>
 <body>
-    <table class="tg">
-        <tbody>
-            {% for i in week %}
-            <tr>
-                <td class="tg-0pky">{{ i|date:"D d" }}</td>
-                {% for j in match_list %}
-                
-                {% endfor %}
-            </tr>
-        </tbody>
-    </table>
-    
+    <h1>My Gym Time</h1>
+    <p>Hello, {{ request.user.username }}! Here's your gym schedule for the next 7 days:</p>
+    <form action="/match_make/" method="post">
+        
+        <input type="date" id="gym_date" name="gym_date"  min="{{now|date:'Y-m-d'}}" max="{{max_date|date:'Y-m-d'}}" />
+        
+        <select id="gym_time" name="gym_time">
+            <option value="time1">time1</option>
+            <option value="time2">time2</option>
+            <option value="time3">time3</option>
+            <option value="time4">time4</option>
+        </select>
+
+        <input type="submit" value="Submit">
+    </form>
 </body>
+</html>
