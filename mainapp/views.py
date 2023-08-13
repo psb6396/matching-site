@@ -66,10 +66,17 @@ def match_make(request):
     if request.method == 'POST':
         date = request.POST.get('gym_date')
         time = request.POST.get('gym_time')
-        created_match = Match(time = time, date = date)
-        created_match.save()
+        try:
+            confirm_repetition = Match.objects.get(time = time, date = date)
+        except Match.DoesNotExist:
+            confirm_repetition = None
+        if (confirm_repetition == None):
+            created_match = Match(time = time, date = date)
+            created_match.save()
+        else:
+            print("object_repetition")
         return render(request, 'mainapp/gym_time.html', context)
-    else:    
+    else:
         return render(request, 'mainapp/gym_time.html', context)
     
 
