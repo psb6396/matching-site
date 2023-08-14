@@ -67,11 +67,11 @@ def match_make(request):
         date = request.POST.get('gym_date')
         time = request.POST.get('gym_time')
         try:
-            confirm_repetition = Match.objects.get(time = time, date = date)
+            confirm_repetition = Match.objects.get(date = date, time = time )
         except Match.DoesNotExist:
             confirm_repetition = None
         if (confirm_repetition == None):
-            created_match = Match(time = time, date = date)
+            created_match = Match(date = date, time = time )
             created_match.save()
         else:
             print("object_repetition")
@@ -81,19 +81,19 @@ def match_make(request):
     
 
 #매칭 잡기 함수
-# def match_request(request):
-#     if request.user.is_authenicated:
-#         # me = My_user.objects.get(pk = request.user.pk)
-#         me = request.user
-#         me_player = Player.objects.get(my_users = me)
-#         player_that_doesnt_fight = Player.objects.exclude(my_users = me).exclude(intention_to_fight = False)
-#         if (random_opponent_player != None):
-#             random_opponent_player = random.choice(player_that_doesnt_fight)
-#             match = Match.objects.create()
-#             match.player.add(me_player, random_opponent_player)
-#             # 추가해야할 코드 : 매치에 레프리정보도 담겨야 됨.
-#         else:
-#             return render(request, 'mainapp/index.html', {'error': 'there is no opponent'})
+def match_request(request):
+    me = request.user
+    player1 = My_user.objects.get(pk = me)
+    player1.intention_to_fight = True
+    player2 = My_user.objects.exclude(pk = player1).exclude(intention_to_fight = False)
+    
+    if (random_opponent_player != None):
+        random_opponent_player = random.choice(player_that_doesnt_fight)
+        match = Match.objects.create()
+        match.player.add(me_player, random_opponent_player)
+        # 추가해야할 코드 : 매치에 레프리정보도 담겨야 됨.
+    else:
+        return render(request, 'mainapp/index.html', {'error': 'there is no opponent'}) 
             #상대없으면 상대 없다는 메세지 띄우고 홈페이지 돌아가기
 
 # def match_making(request):
