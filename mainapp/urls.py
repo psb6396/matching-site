@@ -11,5 +11,5 @@ urlpatterns = [
     path('login_request/', views.login_request, name= "login"),
     path("logout_request/", views.logout_request, name= "logout"),
     path("match_make/", views.match_make, name = 'match_make'),
-#    path("match_making/", views.match_making, name= "match_making"),
+    path("match_request/", views.match_request, name= "match_request"),
 ]

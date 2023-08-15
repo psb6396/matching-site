@@ -27,5 +27,6 @@ class Match(models.Model):
     ]
     time = models.CharField(max_length=10, choices=Time_choices)
     date = models.DateField(blank= True,null=True,auto_now=False, auto_now_add=False)
-    my_user = models.ManyToManyField(My_user)
-    #잡생각에 빡세게 안하기
+    player = models.ManyToManyField(My_user)
+    referee = models.ManyToManyField(My_user)
+    

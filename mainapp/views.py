@@ -79,22 +79,25 @@ def match_make(request):
     else:
         return render(request, 'mainapp/gym_time.html', context)
     
-
 #매칭 잡기 함수
 def match_request(request):
-    me = request.user
-    player1 = My_user.objects.get(pk = me)
-    player1.intention_to_fight = True
-    player2 = My_user.objects.exclude(pk = player1).exclude(intention_to_fight = False)
+    # 생성되어있는 모든 Match 객체들을 불러와야함 시간 빠른순으로 ㅇㅇ
+    # 클릭한 Match 객체와 연결시켜야 함.
+    # template에서는 match의 심판, 장소 등의 그런것들도 나와야됨.
+    matches = Match.objects.all().order_by('date')
+    context = {'matches' : matches}
     
-    if (random_opponent_player != None):
-        random_opponent_player = random.choice(player_that_doesnt_fight)
-        match = Match.objects.create()
-        match.player.add(me_player, random_opponent_player)
-        # 추가해야할 코드 : 매치에 레프리정보도 담겨야 됨.
+    if request.method == 'POST':
+        me = request.user
+        player1 = My_user.objects.get(pk = me)
+        player1.intention_to_fight = True
+        random_opponent_player = My_user.objects.exclude(pk = player1).exclude(intention_to_fight = False)
+        if (random_opponent_player != None):
+            player2 = random.choice(random_opponent_player)
     else:
-        return render(request, 'mainapp/index.html', {'error': 'there is no opponent'}) 
-            #상대없으면 상대 없다는 메세지 띄우고 홈페이지 돌아가기
+        return render(request, 'mainapp/index.html', context) 
+        # 추가해야할 코드 : 매치에 레프리정보도 담겨야 됨.   
+        #상대없으면 상대 없다는 메세지 띄우고 홈페이지 돌아가기
 
 # def match_making(request):
     

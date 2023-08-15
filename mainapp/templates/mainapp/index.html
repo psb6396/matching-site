@@ -8,7 +8,7 @@
         {% if request.user.is_authenticated %}
         <p>hi! {{request.user.username}}</p>
         <a href="/logout_request">log out</a> <br>
-        <a href="/match_making">make a match</a> <br>
+        <a href="/match_request">request a match</a> <br>
         <a href = "/profile"> profile </a>
         
         {% else %}
