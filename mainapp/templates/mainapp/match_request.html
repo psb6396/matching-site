@@ -4,9 +4,9 @@
         <title>match</title>
     </head>
     <body>
-        {% for match in matches %}
-        <form action="/match_request/" method="post">
-            {{match.}}
-        </form>
+        {% for i in matches %}
+        asdf
+        {% for match in i %}
+        <a href="{% url 'match_request' %}?id={{match.id}}">{{match.time}}</a>
     </body>
 </html>

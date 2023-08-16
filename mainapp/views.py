@@ -84,10 +84,10 @@ def match_request(request):
     # 생성되어있는 모든 Match 객체들을 불러와야함 시간 빠른순으로 ㅇㅇ
     # 클릭한 Match 객체와 연결시켜야 함.
     # template에서는 match의 심판, 장소 등의 그런것들도 나와야됨.
-    matches = Match.objects.all().order_by('date')
+    matches = Match.objects.all().order_by('date', 'time')
     context = {'matches' : matches}
     
-    if request.method == 'POST':
+    if request.method == 'GET':
         me = request.user
         player1 = My_user.objects.get(pk = me)
         player1.intention_to_fight = True
