@@ -4,9 +4,7 @@
         <title>match</title>
     </head>
     <body>
-        {% for i in matches %}
-        asdf
-        {% for match in i %}
-        <a href="{% url 'match_request' %}?id={{match.id}}">{{match.time}}</a>
+        {% for match in matches %}
+        <a href="{% url 'match_request' %}?id={{match.id}}">{{match.date|date:'D'}}{{match.time}}</a>
     </body>
 </html>

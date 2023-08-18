@@ -31,4 +31,3 @@ class Match(models.Model):
     player = models.ManyToManyField(My_user)
     referee = models.ManyToManyField(My_user)
     
-    
