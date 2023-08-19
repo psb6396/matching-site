@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 import random
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timedelta
-
+from django.db.models import Q
 
 
 def index(request):
@@ -92,17 +92,18 @@ def match_request(request):
         me = request.user
         player1 = My_user.objects.get(pk = me)
         player1.intention_to_fight = True
-        random_opponent_player = My_user.objects.exclude(pk = player1).exclude(intention_to_fight = False)
-        
-        if (random_opponent_player != None):
-            # 경기중복확인은 어찌해야할까..
+        # random_opponent_player = My_user.objects.exclude(pk = player1).exclude(intention_to_fight = False)
+        random_opponent_player = My_user.objects.exclude(Q(pk=player1) | Q(intention_to_fight=False))
+        match_id = request.GET.get('id')
+        repetition_confirm = player1.match_set.get(pk = match_id)          # player1의 match 를 확인.
+        if(repetition_confirm != None):
             
-            player2 = random.choice(random_opponent_player)
-            match_id = request.GET.get('id')
-            chosen_match = Match(pk = match_id)
-            chosen_match.player.add(player1, player2)
-            chosen_match.save()
+            if (random_opponent_player != None):
             
+                player2 = random.choice(random_opponent_player)        
+                chosen_match = Match(pk = match_id)
+                chosen_match.player.add(player1, player2)
+                chosen_match.save()
             
     else:
         return render(request, 'mainapp/index.html', context) 
