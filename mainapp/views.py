@@ -110,14 +110,10 @@ def match_request(request):
         # 추가해야할 코드 : 매치에 레프리정보도 담겨야 됨.  
         #상대없으면 상대 없다는 메세지 띄우고 홈페이지 돌아가기
 
-# def match_making(request):
-    
-#     # referee가 제공하는 매칭 시간정보? 에 대한 내용?
-#     # 위에 아예 매칭관련함수를 싹 바꿔야 할 수도 있음.
-# def define_winner(request):
-#     referee_verify = isinstance(request.user, Refree)
-#     if (referee_verify == True):
-        # 누가 승자인지 접근하기 위해 Match 클래스에서 접근??해야하나
+def define_winner(request):
+    me = request.user
+    #get으로 얻은 match 정보로
+    # 누가 승자인지 접근하기 위해 Match 클래스에서 접근??해야하나
         
 # referee 입장에서 경기시간 제공하는 html 
 
