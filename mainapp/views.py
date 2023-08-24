@@ -67,7 +67,7 @@ def match_make(request):
         date = request.POST.get('gym_date')
         time = request.POST.get('gym_time')
         try:
-            confirm_repetition = Match.objects.get(date = date, time = time )
+            confirm_repetition = Match.objects.get(date = date , time=time)
         except Match.DoesNotExist:
             confirm_repetition = None
         if (confirm_repetition == None):
@@ -90,10 +90,10 @@ def match_request(request):
     
     if request.method == 'GET':
         me = request.user
-        player1 = My_user.objects.get(pk = me)
+        player1 = My_user.objects.get(pk = me.id)
         player1.intention_to_fight = True
         # random_opponent_player = My_user.objects.exclude(pk = player1).exclude(intention_to_fight = False)
-        random_opponent_player = My_user.objects.exclude(Q(pk=player1) | Q(intention_to_fight=False))
+        random_opponent_player = My_user.objects.exclude(Q(pk=player1.id) | Q(intention_to_fight=False))
         match_id = request.GET.get('id')
         repetition_confirm = player1.match_set.get(pk = match_id)          # player1의 match 를 확인.
         if(repetition_confirm != None):
@@ -106,16 +106,19 @@ def match_request(request):
                 chosen_match.save()
             
     else:
-        return render(request, 'mainapp/index.html', context) 
+        return render(request, 'mainapp/match_request.html', context) 
         # 추가해야할 코드 : 매치에 레프리정보도 담겨야 됨.  
         #상대없으면 상대 없다는 메세지 띄우고 홈페이지 돌아가기
 
-def define_winner(request):
-    me = request.user
+# def define_winner(request): #
+#     me = request.user
+#     player1 = My_user.objects.get(pk = me)
+    
+#     if request.method == 'GET':
+#         match_id = request.GET.get('id')
+#         match = Match.objects.get(pk = match_id)
+#         context = {'match' : match}
+        
     #get으로 얻은 match 정보로
     # 누가 승자인지 접근하기 위해 Match 클래스에서 접근??해야하나
-        
-# referee 입장에서 경기시간 제공하는 html 
-
-
-
+    # # referee 입장에서 경기시간 제공하는 html
