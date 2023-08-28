@@ -5,6 +5,6 @@
     </head>
     <body>
         {% for match in matches %}
-        <a href="{% url 'match_request' %}?id={{match.id}}">{{match.date|date:'D'}}{{match.time}}</a>
+        <a href="{% url 'match_request' match_id={{match.id}} %}">{{match.date|date:'D'}}{{match.time}}</a>
     </body>
 </html>
