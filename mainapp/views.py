@@ -90,16 +90,15 @@ def match_request(request, match_id):
     
     if request.method == 'GET':
         me = request.user
-        player1 = My_user.objects.get(pk = match_id)
+        player1 = My_user.objects.get(pk = me.id)
         player1.intention_to_fight = True
-        random_opponent_player = My_user.objects.exclude(Q(pk=player1.id) | Q(intention_to_fight=False))
-        # match_id = request.GET.get('id')
-        repetition_confirm = player1.match_set.get(pk = match_id)          # player1의 match 를 확인.
+        random_opponent_player = My_user.objects.exclude(Q(pk = player1.id) | Q(intention_to_fight = False))
+        repetition_confirm = player1.match_set.get(pk = match_id)          # player1의 match를 현재의 match와 중복확인.
         if(repetition_confirm != None):
             
             if (random_opponent_player != None):
             
-                player2 = random.choice(random_opponent_player)        
+                player2 = random.choice(random_opponent_player)
                 chosen_match = Match(pk = match_id)
                 chosen_match.player.add(player1, player2)
                 chosen_match.save()
