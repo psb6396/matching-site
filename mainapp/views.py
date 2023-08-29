@@ -80,10 +80,8 @@ def match_make(request):
         return render(request, 'mainapp/gym_time.html', context)
     
 #매칭 잡기 함수
+@login_required
 def match_request(request, match_id):
-    # 생성되어있는 모든 Match 객체들을 불러와야함 시간 빠른순으로 ㅇㅇ
-    # 클릭한 Match 객체와 연결시켜야 함.
-    # template에서는 match의 심판, 장소 등의 그런것들도 나와야됨(나중에 코딩).
     # matches = Match.objects.all().order_by('date', 'time') 어떻게 렌더링 될지 모르니깐
     matches = Match.objects.all().order_by('date')
     context = {'matches' : matches}
@@ -105,7 +103,6 @@ def match_request(request, match_id):
             
     else:
         return render(request, 'mainapp/match_request.html', context) 
-        # 추가해야할 코드 : 매치에 레프리정보도 담겨야 됨.  
         #상대없으면 상대 없다는 메세지 띄우고 홈페이지 돌아가기
 
 # def define_winner(request): #
