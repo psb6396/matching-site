@@ -8,7 +8,7 @@
         <h2>match_request</h2>
         <h2>available matches :</h2>
         {% for match in matches %}
-        <a href="{% url 'match_request' match_id = match.id %}">{{match.date|date:'D M'}}, {{match.time}}</a><br>
+        <a href="{% url 'match_request' match_id=match.id %}">{{match.date|date:'D M'}}, {{match.time}}</a><br>
         {% endfor %}
     </body>
 </html>
