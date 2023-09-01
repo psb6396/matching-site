@@ -91,7 +91,10 @@ def match_request(request, match_id):
     player1 = My_user.objects.get(pk = me.id)
     player1.intention_to_fight = True
     random_opponent_player = My_user.objects.exclude(Q(pk = player1.id) | Q(intention_to_fight = False))
-    repetition_confirm = player1.match_set.get(pk = match_id)          # match_set 에서 에러
+    try:
+        repetition_confirm = player1.player_match.get(pk = match_id)          # match_set 에서 에러
+    except player1.DoesNotExist:
+        repetition_confirm = None
     if (repetition_confirm != None):
             
         if (random_opponent_player != None):
