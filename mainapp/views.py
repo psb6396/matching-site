@@ -1,11 +1,11 @@
 from django.shortcuts import render
-from .models import My_user, Match
 from django.contrib.auth import authenticate, login, logout
-import random
 from django.contrib.auth.decorators import login_required
-from datetime import datetime, timedelta
 from django.db.models import Q
-
+from django.core.exceptions import ObjectDoesNotExist 
+import random
+from .models import My_user, Match
+from datetime import datetime, timedelta
 
 def index(request):
     return render(request, 'mainapp/index.html')
@@ -86,25 +86,24 @@ def match_request_page(request):
     context = {'matches' : matches}
     return render(request, 'mainapp/match_request.html', context) 
 
+@login_required
 def match_request(request, match_id):
     me = request.user
     player1 = My_user.objects.get(pk = me.id)
     player1.intention_to_fight = True
     random_opponent_player = My_user.objects.exclude(Q(pk = player1.id) | Q(intention_to_fight = False))
     try:
-        repetition_confirm = player1.player_match.get(pk = match_id)          # match_set 에서 에러
-    except player1.DoesNotExist:
-        repetition_confirm = None
-    if (repetition_confirm != None):
-            
+        repetition_confirm = player1.player_match.get(pk = match_id)          
+    except ObjectDoesNotExist:
+        
         if (random_opponent_player != None):
             
             player2 = random.choice(random_opponent_player)
             chosen_match = Match(pk = match_id)
             chosen_match.player.add(player1, player2)
             chosen_match.save()    
-            
-
+    
+    
 # def define_winner(request): #
 #     me = request.user
 #     player1 = My_user.objects.get(pk = me)
