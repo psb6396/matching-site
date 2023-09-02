@@ -101,7 +101,7 @@ def match_request(request, match_id):
             chosen_match = Match(pk = match_id)
             chosen_match.player.add(player1, player2)
             chosen_match.save()
-            return redirect() 
+            return redirect('mainapp:match_request_page') 
         else:
             raise Http404("player's match does not exist")
 # def define_winner(request): #
