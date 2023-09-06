@@ -6,6 +6,7 @@ import random
 from .models import My_user, Match
 from datetime import datetime, timedelta
 from django.http import Http404
+from django.contrib import messages
 
 def index(request):
     return render(request, 'mainapp/index.html')
@@ -93,32 +94,19 @@ def match_request(request, match_id):
     player1.intention_to_fight = True
     random_opponent_player = My_user.objects.exclude(Q(pk = player1.id) | Q(intention_to_fight = False))
     
-    # 클릭한 사람의 경기중에 클릭한 시간대와 동일한 경기가 있으면 오류발생 시키고 싶음.
-    if Match.objects.filter(Q(pk = match_id) & Q(player = me)).exists():
-        return render()
-    elif (random_opponent_player != None):
-        player2 = random.choice(random_opponent_player)
+    if Match.objects.filter(Q(pk = match_id) & Q(player = me)).exists():  #중복확인
+        messages.warning(request, "중복입니다.다른 시간대를 선택해주세요.")
+        return redirect('mainapp:match_request_page')
+    
+    elif random_opponent_player.exists():
+        player2 = random.choice(random_opponent_player) #여기서 오류 왜 날까 
         chosen_match = Match(pk = match_id)
         chosen_match.player.add(player1, player2)
         chosen_match.save()
-        return redirect('mainapp:match_request_page')     
+        return redirect('mainapp:match_request_page')
+    else:
+        raise Http404
     
-    
-    
-    # 아래는 실패한 코드
-    # try:
-    #     player1.player_match.get(pk = match_id)
-    # except player1.DoesNotExist:
-    #     if (random_opponent_player != None):
-    #         player2 = random.choice(random_opponent_player)
-    #         chosen_match = Match(pk = match_id)
-    #         chosen_match.player.add(player1, player2)
-    #         chosen_match.save()
-    #         return redirect('mainapp:match_request_page') 
-    # else:
-    #     raise Http404("player's match does not exist")
-
-
 
 # def define_winner(request): #
 #     me = request.user
