@@ -92,14 +92,14 @@ def match_request(request, match_id):
     me = request.user
     player1 = My_user.objects.get(pk = me.id)
     player1.intention_to_fight = True
-    random_opponent_player = My_user.objects.exclude(Q(pk = player1.id) | Q(intention_to_fight = False))
+    player1.save()
+    random_opponent = My_user.objects.exclude(Q(pk = player1.id) | Q(intention_to_fight = False))
     
     if Match.objects.filter(Q(pk = match_id) & Q(player = me)).exists():  #중복확인
         messages.warning(request, "중복입니다.다른 시간대를 선택해주세요.")
         return redirect('mainapp:match_request_page')
-    
-    elif random_opponent_player.exists():
-        player2 = random.choice(random_opponent_player) #여기서 오류 왜 날까 
+    elif random_opponent.exists():
+        player2 = random.choice(random_opponent) 
         chosen_match = Match(pk = match_id)
         chosen_match.player.add(player1, player2)
         chosen_match.save()
