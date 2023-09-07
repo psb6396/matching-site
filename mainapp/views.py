@@ -100,12 +100,12 @@ def match_request(request, match_id):
         return redirect('mainapp:match_request_page')
     elif random_opponent.exists():
         player2 = random.choice(random_opponent) 
-        chosen_match = Match(pk = match_id)
+        chosen_match = Match.objects.get(pk = match_id) # 원래 있던 매치를 가져와야하는데 이거맞나
         chosen_match.player.add(player1, player2)
         chosen_match.save()
         return redirect('mainapp:match_request_page')
-    else:
-        raise Http404
+    elif not random_opponent:
+        
     
 
 # def define_winner(request): #
