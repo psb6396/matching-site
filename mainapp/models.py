@@ -9,8 +9,6 @@ class My_user(AbstractUser):
     role = models.CharField(max_length=10, choices=ROLES, default='player')
     score = models.IntegerField(default=1000)
     intention_to_fight = models.BooleanField(default=False)
-    gym = models.CharField(max_length=50)
-    # available_time = models.DateTimeField(null=True)
     
 class Match(models.Model):
     time1 = 'time1'
@@ -29,3 +27,5 @@ class Match(models.Model):
     player = models.ManyToManyField(My_user, related_name = 'player_match')
     referee = models.ManyToManyField(My_user,related_name = 'referee_match')
     
+class Gym(models.Model):
+    referee = models.

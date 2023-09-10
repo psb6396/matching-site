@@ -5,8 +5,6 @@ from django.db.models import Q
 import random
 from .models import My_user, Match
 from datetime import datetime, timedelta
-from django.http import Http404
-from django.contrib import messages
 
 def index(request):
     return render(request, 'mainapp/index.html')
@@ -60,7 +58,6 @@ def profile(request):
 
 @login_required
 def match_make(request):
-    me = request.user
     now = datetime.now()
     max_date = now + timedelta(days = 7)
     context = {'now' : now, 'max_date' : max_date}
@@ -96,16 +93,19 @@ def match_request(request, match_id):
     random_opponent = My_user.objects.exclude(Q(pk = player1.id) | Q(intention_to_fight = False))
     
     if Match.objects.filter(Q(pk = match_id) & Q(player = me)).exists():  #중복확인
-        messages.warning(request, "중복입니다.다른 시간대를 선택해주세요.")
+        print("중복입니다.다른 시간대를 선택해주세요.")
         return redirect('mainapp:match_request_page')
     elif random_opponent.exists():
         player2 = random.choice(random_opponent) 
-        chosen_match = Match.objects.get(pk = match_id) # 원래 있던 매치를 가져와야하는데 이거맞나
+        chosen_match = Match.objects.get(pk = match_id) 
         chosen_match.player.add(player1, player2)
         chosen_match.save()
-        return redirect('mainapp:match_request_page')
+        return redirect('mainapp:index')
     elif not random_opponent:
-        
+        print("매칭 상대방이 없습니다.")
+        return redirect('mainapp:index')
+    
+    # 해야할거 : rating 시스템 만들기(심판이 승패 결정) pypi를 이용해야하나 , 티어 만들기, 
     
 
 # def define_winner(request): #
