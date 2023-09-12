@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 import random
-from .models import My_user, Match
+from .models import My_user, Match, Gym
 from datetime import datetime, timedelta
 
 def index(request):
@@ -23,7 +23,10 @@ def referee_register(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        My_user.objects.create_user(password = password, username = username, role='referee')
+        gym_name = request.POST.get('gym_name')
+        name_of_gym = Gym(gym_name = gym_name)
+        My_user.objects.create_user(password = password, username = username, 
+                                    role='referee', gym = name_of_gym)
         return render(request, 'mainapp/index.html')
     else:
         return render(request, 'mainapp/referee_register.html')
