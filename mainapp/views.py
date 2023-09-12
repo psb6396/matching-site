@@ -69,7 +69,7 @@ def match_make(request):
         except Match.DoesNotExist:
             confirm_repetition = None
         if (confirm_repetition == None):
-            created_match = Match(date = date, time = time )
+            created_match = Match(date = date, time = time, ) # gym 정보도 들어가면 좋을 듯
             created_match.save()
         else:
             print("object_repetition")
