@@ -1,6 +1,9 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
     
+class Gym(models.Model):
+    gym_name = models.CharField(max_length=50)
+
 class My_user(AbstractUser):
     ROLES = (
         ('player', 'Player'),
@@ -9,11 +12,10 @@ class My_user(AbstractUser):
     role = models.CharField(max_length=10, choices=ROLES, default='player')
     score = models.IntegerField(default=1000)
     intention_to_fight = models.BooleanField(default=False)
-    
-class Gym(models.Model):
-    gym_name = models.CharField(max_length=50)
+    gym = models.ManyToManyField(Gym)
 
-    
+    # 심판과 gym 정보를 연결시켜야 함.
+
 class Match(models.Model):
     time1 = 'time1'
     time2 = 'time2'
@@ -30,4 +32,3 @@ class Match(models.Model):
     player = models.ManyToManyField(My_user, related_name = 'player_match')
     referee = models.ManyToManyField(My_user,related_name = 'referee_match')
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE, null=True, default=None)
-    
