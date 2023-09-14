@@ -70,9 +70,7 @@ def match_make(request):
         try:
             confirm_repetition = Match.objects.get(date = date , time=time)
         except Match.DoesNotExist:
-            confirm_repetition = None
-        if (confirm_repetition == None):
-            created_match = Match(date = date, time = time, ) # gym 정보도 들어가면 좋을 듯
+            created_match = Match(date = date, time = time, ) # referee가 들어가있나 match에??
             created_match.save()
         else:
             print("object_repetition")
