@@ -61,6 +61,7 @@ def profile(request):
 
 @login_required
 def match_make(request):
+    me = request.user #심판
     now = datetime.now()
     max_date = now + timedelta(days = 7)
     context = {'now' : now, 'max_date' : max_date}
@@ -68,9 +69,9 @@ def match_make(request):
         date = request.POST.get('gym_date')
         time = request.POST.get('gym_time')
         try:
-            confirm_repetition = Match.objects.get(date = date , time=time)
+            Match.objects.get(date = date , time=time)
         except Match.DoesNotExist:
-            created_match = Match(date = date, time = time, ) # referee가 들어가있나 match에??
+            created_match = Match(date = date, time = time, referee = me)
             created_match.save()
         else:
             print("object_repetition")
