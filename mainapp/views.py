@@ -69,9 +69,10 @@ def match_make(request):
         date = request.POST.get('gym_date')
         time = request.POST.get('gym_time')
         try:
-            Match.objects.get(date = date , time=time)
+            Match.objects.get(date = date , time = time, referee = me)
         except Match.DoesNotExist:
-            created_match = Match(date = date, time = time, referee = me)
+            created_match = Match(date = date, time = time)
+            created_match.referee.add(me)
             created_match.save()
         else:
             print("object_repetition")
