@@ -68,10 +68,9 @@ def match_make(request):
     if request.method == 'POST':
         date = request.POST.get('gym_date')
         time = request.POST.get('gym_time')
-        try:
-            Match.objects.get(date = date , time = time, referee = me)
-        except Match.DoesNotExist:
+        if not Match.objects.filter(date = date , time = time, referee = me).exists():
             created_match = Match(date = date, time = time)
+            created_match.save()
             created_match.referee.add(me)
             created_match.save()
         else:
