@@ -88,13 +88,12 @@ def match_request_page(request):
 
 @login_required
 def match_request(request, match_id):
-    me = request.user
-    player1 = My_user.objects.get(pk = me.id)
+    player1 = request.user #me
     player1.intention_to_fight = True
     player1.save()
     random_opponent = My_user.objects.exclude(Q(pk = player1.id) | Q(intention_to_fight = False))
     
-    if Match.objects.filter(Q(pk = match_id) & Q(player = me)).exists():  #중복확인
+    if Match.objects.filter(Q(pk = match_id) & Q(player = player1)).exists():  #중복확인
         print("중복입니다.다른 시간대를 선택해주세요.")
         return redirect('mainapp:match_request_page')
     elif random_opponent.exists():
@@ -107,7 +106,7 @@ def match_request(request, match_id):
         print("매칭 상대방이 없습니다.")
         return redirect('mainapp:index')
     
-    # 해야할거 : rating 시스템 만들기(심판이 승패 결정) pypi를 이용해야하나 , 티어 만들기, 
+    # 해야할거 : 경기 진행하는 코드, rating 시스템 만들기(심판이 승패 결정) pypi를 이용해야하나 , 티어 만들기, 
     
 
 # def define_winner(request): #
