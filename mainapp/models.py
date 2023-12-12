@@ -32,3 +32,5 @@ class Match(models.Model):
     player = models.ManyToManyField(My_user, related_name = 'player_match')
     referee = models.ManyToManyField(My_user,related_name = 'referee_match')
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE, null=True, default=None)
+
+class Tier

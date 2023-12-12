@@ -25,8 +25,7 @@ def referee_register(request):
         password = request.POST.get('password')
         gym_name = request.POST.get('gym_name')
         name_of_gym = Gym(gym_name = gym_name)
-        My_user.objects.create_user(password = password, username = username, 
-                                    role='referee', gym = name_of_gym)
+        My_user.objects.create_user(password = password, username = username, role='referee', gym = name_of_gym)
         return render(request, 'mainapp/index.html')
     else:
         return render(request, 'mainapp/referee_register.html')
@@ -93,7 +92,7 @@ def match_request(request, match_id):
     player1.save()
     random_opponent = My_user.objects.exclude(Q(pk = player1.id) | Q(intention_to_fight = False))
     
-    if Match.objects.filter(Q(pk = match_id) & Q(player = player1)).exists():  #중복확인
+    if Match.objects.filter(Q(pk = match_id) & Q(player = player1)).exists():  #클릭한 경기에 대한 match_id 중복확인
         print("중복입니다.다른 시간대를 선택해주세요.")
         return redirect('mainapp:match_request_page')
     elif random_opponent.exists():
