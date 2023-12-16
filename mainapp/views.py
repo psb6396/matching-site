@@ -106,11 +106,10 @@ def match_request(request, match_id):
         return redirect('mainapp:index')
     
     # 해야할거 : 경기 진행하는 코드???, rating 시스템 만들기(심판이 승패 결정) pypi를 이용해야하나 , 티어 만들기, 
-
-
-# def define_winner(request): #
-#     me = request.user
-#     player1 = My_user.objects.get(pk = me)
+    
+def define_winner(request): 
+    me = request.user
+    player1 = My_user.objects.get(pk = me)
     
 #     if request.method == 'GET':
 #         match_id = request.GET.get('id')
