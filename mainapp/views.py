@@ -106,7 +106,7 @@ def match_request(request, match_id):
         return redirect('mainapp:index')
     
     # 해야할거 : 경기 진행하는 코드???, rating 시스템 만들기(심판이 승패 결정) pypi를 이용해야하나 , 티어 만들기, 
-    
+
 def define_winner(request): 
     me = request.user
     player1 = My_user.objects.get(pk = me)
@@ -119,3 +119,4 @@ def define_winner(request):
     #get으로 얻은 match 정보로
     # 누가 승자인지 접근하기 위해 Match 클래스에서 접근??해야하나
     # # referee 입장에서 경기시간 제공하는 html
+    

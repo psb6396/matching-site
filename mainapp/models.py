@@ -12,7 +12,8 @@ class My_user(AbstractUser):
     role = models.CharField(max_length=10, choices=ROLES, default='player')
     score = models.IntegerField(default=1000)
     intention_to_fight = models.BooleanField(default=False)
-    gym = models.ManyToManyField(Gym) 
+    gym = models.ManyToManyField(Gym)
+    tier = models.ForeignKey('Tier', on_delete=models.CASCADE)
 
     # 심판과 gym 정보를 연결시켜야 함.
 
@@ -34,3 +35,10 @@ class Match(models.Model):
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE, null=True, default=None)
 
 class Tier(models.Model):
+    Tier = (
+        ('rookie', 'Rookie'),
+        ('beginner', 'Beginner'),
+        ('amateur', 'Amateur'),
+        ('semi_pro', 'Semi_pro'),
+        ('pro', 'Pro')
+    )
