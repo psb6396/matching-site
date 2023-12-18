@@ -5,6 +5,7 @@
     <title>referee_match</title>
 </head>
 <body>
-    
+    {% for match in matches %}
+    <a href="/match_make/">{{match.date}}, {{match.time}}</a>
 </body>
 </html>
