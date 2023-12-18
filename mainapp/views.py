@@ -60,17 +60,17 @@ def profile(request):
 
 @login_required
 def match_make(request):
-    me = request.user #심판
+    referee = request.user #심판
     now = datetime.now()
     max_date = now + timedelta(days = 7)
     context = {'now' : now, 'max_date' : max_date}
     if request.method == 'POST':
         date = request.POST.get('gym_date')
         time = request.POST.get('gym_time')
-        if not Match.objects.filter(date = date , time = time, referee = me).exists():
+        if not Match.objects.filter(date = date , time = time, referee = referee).exists():
             created_match = Match(date = date, time = time)
             created_match.save()
-            created_match.referee.add(me)
+            created_match.referee.add(referee)
             created_match.save()
         else:
             print("object_repetition")
@@ -107,16 +107,11 @@ def match_request(request, match_id):
     
     # 해야할거 : 경기 진행하는 코드???, rating 시스템 만들기(심판이 승패 결정) pypi를 이용해야하나 , 티어 만들기, 
 
-def define_winner(request): 
-    me = request.user
-    player1 = My_user.objects.get(pk = me)
-    
-#     if request.method == 'GET':
-#         match_id = request.GET.get('id')
-#         match = Match.objects.get(pk = match_id)
-#         context = {'match' : match}
-        
-    #get으로 얻은 match 정보로
-    # 누가 승자인지 접근하기 위해 Match 클래스에서 접근??해야하나
+def match_info(request): 
+    referee = request.user
+    matches = Match.objects.get(referee = referee) # referee의 매치 정보를 불러와야 함
+    context = {'matches' : matches}
+    return render(request, 'mainapp/match_request.html', context) # matches 페이지 만들기
+
+    #get으로 얻은 match 의 player 정보 불러오기
     # # referee 입장에서 경기시간 제공하는 html
-    

@@ -1,6 +1,15 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
     
+class Tier(models.Model):
+    Tier = (
+        ('rookie', 'Rookie'),
+        ('beginner', 'Beginner'),
+        ('amateur', 'Amateur'),
+        ('semi_pro', 'Semi_pro'),
+        ('pro', 'Pro')
+    )
+
 class Gym(models.Model):
     gym_name = models.CharField(max_length=50, default=None)
 
@@ -13,7 +22,7 @@ class My_user(AbstractUser):
     score = models.IntegerField(default=1000)
     intention_to_fight = models.BooleanField(default=False)
     gym = models.ManyToManyField(Gym)
-    tier = models.ForeignKey('Tier', on_delete=models.CASCADE)
+    tier = models.ForeignKey(Tier, on_delete=models.CASCADE, null=True, blank=True)
 
     # 심판과 gym 정보를 연결시켜야 함.
 
@@ -33,12 +42,3 @@ class Match(models.Model):
     player = models.ManyToManyField(My_user, related_name = 'player_match')
     referee = models.ManyToManyField(My_user,related_name = 'referee_match')
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE, null=True, default=None)
-
-class Tier(models.Model):
-    Tier = (
-        ('rookie', 'Rookie'),
-        ('beginner', 'Beginner'),
-        ('amateur', 'Amateur'),
-        ('semi_pro', 'Semi_pro'),
-        ('pro', 'Pro')
-    )
