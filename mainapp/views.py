@@ -116,7 +116,7 @@ def match_info(request):
 
 def define_winner(request):
     if request.method == 'POST':
-        
+        pass
 
 
 # 해야할거 : 경기 진행하는 코드???, rating 시스템 만들기(심판이 승패 결정) pypi를 이용해야하나 , 티어 만들기,
