@@ -107,15 +107,17 @@ def match_request(request, match_id):
     
 def match_info(request): 
     referee = request.user
-    matches = Match.objects.get(referee = referee) # referee의 매치 정보를 불러와야 함
+    matches = Match.objects.filter(referee = referee) # referee의 매치 정보를 불러와야 함
     context = {'matches' : matches}
     return render(request, 'mainapp/referee_match.html', context)
-
+    # matches가 
     #get으로 얻은 match 의 player 정보 불러오기
     # # referee 입장에서 경기시간 제공하는 html
 
 def define_winner(request):
     if request.method == 'POST':
+        pass
+    else:
         pass
 
 

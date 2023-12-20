@@ -13,5 +13,5 @@ urlpatterns = [
     path("match_make/", views.match_make, name = 'match_make'),
     path('match_request/', views.match_request_page, name = "match_request_page"),
     path('match_request/<int:match_id>/', views.match_request, name= "match_request"),
-    # url /match_info/ 만들어주기 ㅇㅇ
+    path('match_info/', views.match_info, name = "match_info_page"),
 ]
