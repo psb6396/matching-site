@@ -116,7 +116,8 @@ def match_info(request):
 
 def define_winner(request):
     if request.method == 'POST':
-        pass
+        winner = request.POST.get('winner')
+
     else:
         pass
 
