@@ -4,7 +4,7 @@
 """Created by Samuel Wu on 03/15/2023."""
 
 from typing import Dict, Optional
-from models import My_user
+# from models import My_user
 
 class Player:
     """A class that stores the statistics of a player."""
