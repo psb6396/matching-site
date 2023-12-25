@@ -9,8 +9,9 @@
     {{match.date}}, {{match.time}}
     <form action="/define_winner/" method="post">
         <select id="winner" name="winner">
-            <option value="player1">player1</option>
-            <option value="player2">player2</option>
+            {% for user in match.player.all %}
+            <option value="{{user.id}}">{{user.username}}</option>
+            {% endfor %}
         </select>
     <input type="submit" value="Submit" />
     <!-- submit하면 바로 승자처리해주는 display도 필요함 -->
