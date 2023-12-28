@@ -126,5 +126,3 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-ELO_START_VALUE = 1000
-ELO_FACTOR_K = 30
