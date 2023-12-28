@@ -6,14 +6,16 @@
 </head>
 <body>
     {% for match in matches %}
-    {{match.date}}, {{match.time}}
-    <form action="/define_winner/" method="post">
+    {{match.date}}, {{match.time}} <br>
+    {% if match.player.exists %}
+    <form action="/define_winner/{{ match.id }}" method="post">
         <select id="winner" name="winner">
             {% for user in match.player.all %}
             <option value="{{user.id}}">{{user.username}}</option>
             {% endfor %}
         </select>
     <input type="submit" value="Submit" />
+    {% endif %}
     <!-- submit하면 바로 승자처리해주는 display도 필요함 -->
     {% endfor %}
 </body>
