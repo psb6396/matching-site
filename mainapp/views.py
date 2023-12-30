@@ -114,12 +114,9 @@ def match_info(request):
     # get으로 얻은 match 의 player 정보 불러오기
     # referee 입장에서 경기시간 제공하는 html
 
-def define_winner(request):
-    if request.method == 'POST':
-        winner = request.POST.get('winner')
-        pass
-    else:
-        pass
-
-
+def define_winner(request, user_id):
+    winner = My_user.objects.get(pk = user_id) 
+    
+    # loser는 자연스럽게 나머지 한명으로 할당.
+    
 # 해야할거 : 경기 진행하는 코드???, rating 시스템 만들기(심판이 승패 결정) pypi를 이용해야하나, 티어 만들기,

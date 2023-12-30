@@ -7,7 +7,12 @@
 <body>
     {% for match in matches %}
     {{match.date}}, {{match.time}} <br>
-    {% if match.player.exists %}
+        {% for user in match.player.all %}
+        {% if match.player.exists %}
+        <a href="{% url 'define_winner' user_id = user.id %}">{{user.username}}</a>
+        {% endfor %}
+    {% endfor %}
+    {% comment %} {% if match.player.exists %}
     <form action="/define_winner/{{ match.id }}" method="post">
         <select id="winner" name="winner">
             {% for user in match.player.all %}
@@ -15,8 +20,8 @@
             {% endfor %}
         </select>
     <input type="submit" value="Submit" />
-    {% endif %}
+    {% endif %} {% endcomment %}
     <!-- submit하면 바로 승자처리해주는 display도 필요함 -->
-    {% endfor %}
+    {% comment %} {% endfor %} {% endcomment %}
 </body>
 </html>

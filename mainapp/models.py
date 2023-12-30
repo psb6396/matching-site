@@ -14,8 +14,29 @@ class My_user(AbstractUser):
     score = models.IntegerField(default=1000)
     intention_to_fight = models.BooleanField(default=False)
     gym = models.ManyToManyField(Gym)
+    losses =  models.IntegerField(default=0)
+    draws = models.IntegerField(default=0)
+    rank = models.CharField(max_length=50, default=None)
     
-
+    def calculate_rank(self) -> None:
+        """Calculate the rankings of a player if rankings are enabled."""
+        if self.elo >= 2400:
+            self.rank = "Grand Master"
+        elif self.elo >= 2000:
+            self.rank = "Master"
+        elif self.elo >= 1850:
+            self.rank = "Diamond"
+        elif self.elo >= 1650:
+            self.rank = "Platinum"
+        elif self.elo >= 1500:
+            self.rank = "Gold"
+        elif self.elo >= 1300:
+            self.rank = "Silver"
+        elif self.elo >= 1100:
+            self.rank = "Bronze"
+        else:
+            self.rank = "Iron"
+    
     # 심판과 gym 정보를 연결시켜야 함.
 
 class Match(models.Model):
