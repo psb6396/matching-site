@@ -5,6 +5,7 @@ from django.db.models import Q
 import random
 from .models import My_user, Match, Gym
 from datetime import datetime, timedelta
+from elo_system import EloSystem
 
 def index(request):
     return render(request, 'mainapp/index.html')
