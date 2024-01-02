@@ -18,6 +18,7 @@ class My_user(AbstractUser):
     losses =  models.IntegerField(default=0)
     draws = models.IntegerField(default=0)
     rank = models.CharField(max_length=50, default=None)
+    elo = models.IntegerField(default = 1000)
     
     def calculate_rank(self) -> None:
         """Calculate the rankings of a player if rankings are enabled."""

@@ -40,29 +40,29 @@ class EloSystem:
 
     # Player Methods
 
-    def add_player(self, player: str, elo: Optional[int] = None) -> None:
-        """Add a player to the system.
+    # def add_player(self, player: str, elo: Optional[int] = None) -> None:
+    #     """Add a player to the system.
 
-        :param player: The name of the player.
-        :type name: str
-        :param elo: The initial ratings for the player, defaults to None.
-        :type elo: Optional[int], optional
-        """
-        if elo is None:
-            elo = self.base_elo
+    #     :param player: The name of the player.
+    #     :type name: str
+    #     :param elo: The initial ratings for the player, defaults to None.
+    #     :type elo: Optional[int], optional
+    #     """
+    #     if elo is None:
+    #         elo = self.base_elo
 
-        self.players[player] = Player(elo) # player객체 생성.
+    #     self.players[player] = Player(elo) # player객체 생성.
 
-        if self.rankings:
-            self.players[player].calculate_rank()
+    #     if self.rankings:
+    #         self.players[player].calculate_rank()
 
-    def remove_player(self, player: str) -> None:
-        """Remove a player from the system.
+    # def remove_player(self, player: str) -> None:
+    #     """Remove a player from the system.
 
-        :param player: The name of the player.
-        :type player: str
-        """
-        del self.players[player]
+    #     :param player: The name of the player.
+    #     :type player: str
+    #     """
+    #     del self.players[player]
 
     # Elo Methods
 
