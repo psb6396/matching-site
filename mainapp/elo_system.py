@@ -10,7 +10,8 @@ Rewritten by Samuel Wu on 03/15/2023.
 from math import floor
 from typing import Dict, List, Optional
 
-from player import Player
+# from player import Player
+from models import My_user
 
 
 class EloSystem:
@@ -35,7 +36,7 @@ class EloSystem:
         """
         self.base_elo = base_elo
         self.k_factor = k_factor
-        self.players: Dict[str, Player] = {}
+        self.players: Dict[str, My_user] = {}
         self.rankings = rankings
 
     # Player Methods
@@ -249,7 +250,7 @@ class EloSystem:
     # Main Matching System
 
     def record_match(
-        self, *, winner: str, loser: str, draw: bool = False
+        self, *, winner_id: str, loser_id: str, draw: bool = False
     ) -> None:
         """Calculate the players' ratings based on of they won, lost or drawn.
 
@@ -260,8 +261,8 @@ class EloSystem:
         :param draw: Make the match be a draw, defaults to False.
         :type draw: bool, optional
         """
-        player_a = self.players[winner]
-        player_b = self.players[loser]
+        player_a = self.players[winner_id] #    ? = players[winner_id]  의 값이 먼저 존재해야 함.
+        player_b = self.players[loser_id]
 
         ratings_a = 10 ** (player_a.elo / 400)
         ratings_b = 10 ** (player_b.elo / 400)
