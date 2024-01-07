@@ -11,7 +11,7 @@ from math import floor
 from typing import Dict, List, Optional
 
 # from player import Player
-from models import My_user
+from .models import My_user
 
 
 class EloSystem:
@@ -19,7 +19,6 @@ class EloSystem:
 
     def __init__(
         self,
-        base_elo: int = 1000,
         k_factor: int = 32,
         *,
         rankings: bool = False,
@@ -36,7 +35,7 @@ class EloSystem:
         """
         self.base_elo = base_elo
         self.k_factor = k_factor
-        self.players: Dict[str, My_user] = {}
+        # self.players: Dict[str, My_user] = {}
         self.rankings = rankings
 
     # Player Methods
@@ -250,7 +249,7 @@ class EloSystem:
     # Main Matching System
 
     def record_match(
-        self, *, winner_id: str, loser_id: str, draw: bool = False
+        self, *, winner_id: int, loser_id: int, draw: bool = False
     ) -> None:
         """Calculate the players' ratings based on of they won, lost or drawn.
 
@@ -261,24 +260,24 @@ class EloSystem:
         :param draw: Make the match be a draw, defaults to False.
         :type draw: bool, optional
         """
-        player_a = self.players[winner_id] #    ? = players[winner_id]  의 값이 먼저 존재해야 함.
-        player_b = self.players[loser_id]
+        player_a = My_user.objects.get(pk = winner_id)
+        player_b = My_user.objects.get(pk = loser_id)
 
         ratings_a = 10 ** (player_a.elo / 400)
         ratings_b = 10 ** (player_b.elo / 400)
-        expected_score_a = ratings_a / (ratings_a + ratings_b)
-        expected_score_b = ratings_b / (ratings_a + ratings_b)
+        possibility_of_a = ratings_a / (ratings_a + ratings_b) 
+        possibility_of_b = ratings_b / (ratings_a + ratings_b) 
 
         if draw:
             player_a.draws += 1
             player_b.draws += 1
-            player_a.elo += floor(self.k_factor * (0.5 - expected_score_a))
-            player_b.elo += floor(self.k_factor * (0.5 - expected_score_b))
+            player_a.elo += floor(self.k_factor * (0.5 - possibility_of_a))
+            player_b.elo += floor(self.k_factor * (0.5 - possibility_of_b))
         else:
             player_a.wins += 1
             player_b.losses += 1
-            player_a.elo += floor(self.k_factor * (1 - expected_score_a))
-            player_b.elo += floor(self.k_factor * (0 - expected_score_b))
+            player_a.elo += floor(self.k_factor * (1 - possibility_of_a))
+            player_b.elo += floor(self.k_factor * (0 - possibility_of_b))
 
         player_a.elo = max(player_a.elo, 0)
         player_b.elo = max(player_b.elo, 0)

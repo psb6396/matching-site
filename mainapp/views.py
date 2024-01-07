@@ -115,12 +115,14 @@ def match_info(request):
     # get으로 얻은 match 의 player 정보 불러오기
     # referee 입장에서 경기시간 제공하는 html
 
-def define_winner(request, user_id):
+def define_winner(request, user_id, match_id):
+    match = Match.objects.get(pk = match_id)
     winner = My_user.objects.get(pk = user_id) 
-    
+    loser = match.player.exclude() # match_id를 이용하는게 제일 베스트일 듯
+    # results = MyModel.objects.filter(~Q(my_field='exclude_this_value'), another_field='another_condition') 이거 쓰기
     # loser는 자연스럽게 나머지 한명으로 할당.
     
     # 해야할거 : 경기 진행하는 코드???, rating 시스템 만들기(심판이 승패 결정) pypi를 이용해야하나, 티어 만들기,
     
-    # {key : value} 의 value로 아예 객체가 들어옴.
+    # {key : value} 의 value로 아예 my_user객체가 들어옴.
     
