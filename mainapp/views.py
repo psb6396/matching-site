@@ -115,7 +115,7 @@ def match_info(request):
     # get으로 얻은 match 의 player 정보 불러오기
     # referee 입장에서 경기시간 제공하는 html
 
-def define_winner(request, user_id, match_id, draw): # 클릭한 정보가 winner 고로 loser만 찾아주면 됨.
+def define_winner(user_id, match_id, draw): # 클릭한 정보가 winner 고로 loser만 찾아주면 됨.
     match = Match.objects.get(pk = match_id)
     loser = match.player.filter(~Q(pk = user_id))
     elo = EloSystem()
@@ -124,4 +124,3 @@ def define_winner(request, user_id, match_id, draw): # 클릭한 정보가 winne
     elif (draw == 'true'):
         elo.record_match(winner_id = user_id, loser_id = loser.id, draw = True)
     
-    # 해야할거 : 경기 진행하는 코드???, 

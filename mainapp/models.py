@@ -17,7 +17,7 @@ class My_user(AbstractUser):
     wins =  models.IntegerField(default=0)
     losses =  models.IntegerField(default=0)
     draws = models.IntegerField(default=0)
-    rank = models.CharField(max_length=50, default=None)
+    rank = models.CharField(max_length=50, default=None, null=True)
     elo = models.IntegerField(default = 1000)
     
     def calculate_rank(self) -> None:
