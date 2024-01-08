@@ -33,7 +33,7 @@ class EloSystem:
         :param rankings: Turn rankings on or off, defaults to False.
         :type rankings: bool, optional
         """
-        self.base_elo = base_elo
+        
         self.k_factor = k_factor
         # self.players: Dict[str, My_user] = {}
         self.rankings = rankings
