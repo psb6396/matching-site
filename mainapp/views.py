@@ -119,11 +119,9 @@ def define_winner(request, user_id, match_id, draw): # 클릭한 정보가 winne
     match = Match.objects.get(pk = match_id)
     loser = match.player.filter(~Q(pk = user_id))
     elo = EloSystem()
-    elo.record_match(winner_id = user_id, loser_id = loser.id, draw = draw)
+    if (draw == 'false'):
+        elo.record_match(winner_id = user_id, loser_id = loser.id, draw = False)
+    elif (draw == 'true'):
+        elo.record_match(winner_id = user_id, loser_id = loser.id, draw = True)
     
-    # html에서 draw 값을 받아야 함.
-    
-    # 해야할거 : 경기 진행하는 코드???, rating 시스템 만들기(심판이 승패 결정) pypi를 이용해야하나, 티어 만들기,
-    
-    # {key : value} 의 value로 아예 my_user객체가 들어옴.
-    
+    # 해야할거 : 경기 진행하는 코드???, 
