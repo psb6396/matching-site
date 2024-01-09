@@ -14,7 +14,7 @@ class My_user(AbstractUser):
     score = models.IntegerField(default=1000)
     intention_to_fight = models.BooleanField(default=False)
     gym = models.ManyToManyField(Gym)
-    wins =  models.IntegerField(default=0)
+    wins = models.IntegerField(default=0)
     losses =  models.IntegerField(default=0)
     draws = models.IntegerField(default=0)
     rank = models.CharField(max_length=50, default=None, null=True)

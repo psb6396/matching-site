@@ -26,6 +26,7 @@ def referee_register(request):
         password = request.POST.get('password')
         gym_name = request.POST.get('gym_name')
         name_of_gym = Gym(gym_name = gym_name)
+        name_of_gym.save()
         My_user.objects.create_user(password = password, username = username, role='referee', gym = name_of_gym)
         return render(request, 'mainapp/index.html')
     else:
