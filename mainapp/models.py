@@ -13,7 +13,7 @@ class My_user(AbstractUser):
     role = models.CharField(max_length=10, choices=ROLES, default='player')
     score = models.IntegerField(default=1000)
     intention_to_fight = models.BooleanField(default=False)
-    gym = models.ManyToManyField(Gym)
+    gym = models.ManyToManyField(Gym) # 관장이 아닌 일반 플레이어들은 어떻게 해줘야하나? null = True같은걸 해줘야하나?
     wins = models.IntegerField(default=0)
     losses =  models.IntegerField(default=0)
     draws = models.IntegerField(default=0)
