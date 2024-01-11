@@ -8,20 +8,14 @@
     {% for match in matches %}
     {{match.date}}, {{match.time}} <br>
         {% for user in match.player.all %}
-        {% if match.player.exists %}
-        <a href="{% url 'define_winner' user_id = user.id match_id = match.id draw = 'false'%}">{{user.username}}</a>
+            {% if match.player.exists %}
+                <a href="{% url 'mainapp:define_winner' user_id=user.id match_id=match.id draw='false' %}">{{ user.username }}</a>
+            {% endif %}
         {% endfor %}
-        <a href="{% url 'define_winner' user_id = user.id match_id = match.id draw = 'true'%}">draw</a>
-        {% comment %} draw 라는 'str'을 인자로 넘기면은 어떨까? 그거를 파라미터로 이용해서 draw 코딩 짜주기 {% endcomment %}
+        <a href="{% url 'mainapp:define_winner' user_id=user.id match_id=match.id draw='true' %}">draw</a>
+        
     {% endfor %}
     <!-- submit하면 바로 승자처리해주는 display도 필요함 -->
+    {% comment %} 그러려면 누가 승자인지에 대한 context도 함께 넘어와야함 {% endcomment %}
 </body>
 </html>
-{% comment %} <form action="/define_winner/" method="post">
-            <!-- Your form fields here -->
-            <select>
-                
-            </select>
-            <!-- Submit button -->
-            <button type="submit" name="action" value="{{ button_value }}">Submit</button>
-        </form> {% endcomment %}

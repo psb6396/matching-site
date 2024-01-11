@@ -108,6 +108,8 @@ def match_request(request, match_id):
         print("매칭 상대방이 없습니다.")
         return redirect('mainapp:index')
     
+    # return redirect('mainapp:index') 이 코드를 아래로 하나로 싹 내려서 통일 가능한가
+    
 def match_info(request): 
     referee = request.user
     matches = Match.objects.filter(referee = referee) # referee의 매치 정보를 불러와야 함
@@ -117,12 +119,13 @@ def match_info(request):
     # get으로 얻은 match 의 player 정보 불러오기
     # referee 입장에서 경기시간 제공하는 html
 
-def define_winner(user_id, match_id, draw): # 클릭한 정보가 winner 고로 loser만 찾아주면 됨.
+def define_winner(request, user_id, match_id, draw): # 클릭한 정보가 winner 고로 loser만 찾아주면 됨.
     match = Match.objects.get(pk = match_id)
-    loser = match.player.filter(~Q(pk = user_id))
+    loser = match.player.get(~Q(pk = user_id))
     elo = EloSystem()
     if (draw == 'false'):
         elo.record_match(winner_id = user_id, loser_id = loser.id, draw = False)
     elif (draw == 'true'):
         elo.record_match(winner_id = user_id, loser_id = loser.id, draw = True)
     
+    return redirect('mainapp:match_info_page')
