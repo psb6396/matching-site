@@ -281,3 +281,6 @@ class EloSystem:
 
         player_a.elo = max(player_a.elo, 0)
         player_b.elo = max(player_b.elo, 0)
+        
+        player_a.save()
+        player_b.save()

@@ -121,7 +121,7 @@ def match_info(request):
 
 def define_winner(request, user_id, match_id, draw): # 클릭한 정보가 winner 고로 loser만 찾아주면 됨.
     match = Match.objects.get(pk = match_id)
-    loser = match.player.get(~Q(pk = user_id))
+    loser = match.player.get(~Q(pk = user_id)) # draw 누르면 이긴사람 진사람 다 loser로 들어옴 ㅈ망 ㅇㅇ
     elo = EloSystem()
     if (draw == 'false'):
         elo.record_match(winner_id = user_id, loser_id = loser.id, draw = False)
@@ -129,4 +129,4 @@ def define_winner(request, user_id, match_id, draw): # 클릭한 정보가 winne
         elo.record_match(winner_id = user_id, loser_id = loser.id, draw = True)
     
     return redirect('mainapp:profile')
-    # 왜 승패 변수에 아무것도 저장되지 않지...? 
+    
