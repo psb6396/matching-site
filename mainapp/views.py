@@ -137,3 +137,4 @@ def define_winner(request, user_id, match_id): # 클릭한 정보가 winner 고�
     
     return redirect('mainapp:profile')
     
+    # if문에 user_id가 2개 날라오는지 1개 날라오는지 확인해봐야함

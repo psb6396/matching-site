@@ -13,7 +13,7 @@
             {% endif %}
         {% endfor %}
         <a href="{% url 'mainapp:define_winner' user_id=user.id match_id=match.id %}">draw</a>
-        
+        <br>
     {% endfor %}
     <!-- submit하면 바로 승자처리해주는 display도 필요함 -->
     {% comment %} 그러려면 누가 승자인지에 대한 context도 함께 넘어와야함 {% endcomment %}
