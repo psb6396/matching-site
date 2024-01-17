@@ -9,10 +9,10 @@
     {{match.date}}, {{match.time}} <br>
         {% for user in match.player.all %}
             {% if match.player.exists %}
-                <a href="{% url 'mainapp:define_winner' user_id=user.id match_id=match.id draw='false' %}">{{ user.username }}</a>
+                <a href="{% url 'mainapp:define_winner' user_id=user.id match_id=match.id %}">{{ user.username }}</a>
             {% endif %}
         {% endfor %}
-        <a href="{% url 'mainapp:define_winner' user_id=user.id match_id=match.id draw='true' %}">draw</a>
+        <a href="{% url 'mainapp:define_winner' user_id=user.id match_id=match.id %}">draw</a>
         
     {% endfor %}
     <!-- submit하면 바로 승자처리해주는 display도 필요함 -->

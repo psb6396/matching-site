@@ -108,6 +108,10 @@ def match_request(request, match_id):
         print("매칭 상대방이 없습니다.")
         return redirect('mainapp:index')
     
+def cancel_request(request):
+    
+    pass
+    
     # return redirect('mainapp:index') 이 코드를 아래로 하나로 싹 내려서 통일 가능한가
     
 def match_info(request): 
@@ -119,14 +123,21 @@ def match_info(request):
     # get으로 얻은 match 의 player 정보 불러오기
     # referee 입장에서 경기시간 제공하는 html
 
-def define_winner(request, user_id, match_id, draw): # 클릭한 정보가 winner 고로 loser만 찾아주면 됨.
+def define_winner(request, user_id, match_id): # 클릭한 정보가 winner 고로 loser만 찾아주면 됨.
     match = Match.objects.get(pk = match_id)
-    loser = match.player.get(~Q(pk = user_id)) # draw 누르면 이긴사람 진사람 다 loser로 들어옴 ㅈ망 ㅇㅇ
     elo = EloSystem()
-    if (draw == 'false'):
+    if (user_id == None):
+        player_objects = match.player.all()
+        player1 = player_objects[0]
+        player2 = player_objects[1]
+        elo.record_match(winner_id = player1.id, loser_id = player2.id, draw = True) # draw 판정
+    else:
+        loser = match.player.get(~Q(pk = user_id)) #get 안써도 되나?
         elo.record_match(winner_id = user_id, loser_id = loser.id, draw = False)
-    elif (draw == 'true'):
-        elo.record_match(winner_id = user_id, loser_id = loser.id, draw = True)
+    
+    
+    #걍 match에서 두명 아이디 가져와서 파라미터에 넣기   get 쪽 다듬어야함.user_id가 안 받아져서 match의 2명 전부 loser로 들어감.
+        
     
     return redirect('mainapp:profile')
     

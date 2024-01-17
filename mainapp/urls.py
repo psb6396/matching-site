@@ -14,5 +14,5 @@ urlpatterns = [
     path('match_request/', views.match_request_page, name = "match_request_page"),
     path('match_request/<int:match_id>/', views.match_request, name= "match_request"),
     path('match_info/', views.match_info, name = "match_info_page"),
-    path('define_winner/<int:user_id>/<int:match_id>/<str:draw>', views.define_winner, name='define_winner'),
+    path('define_winner/<int:user_id>/<int:match_id>/', views.define_winner, name='define_winner'),
 ]
