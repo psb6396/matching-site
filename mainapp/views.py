@@ -135,9 +135,5 @@ def define_winner(request, user_id, match_id): # 클릭한 정보가 winner 고�
         loser = match.player.get(~Q(pk = user_id)) #get 안써도 되나?
         elo.record_match(winner_id = user_id, loser_id = loser.id, draw = False)
     
-    
-    #걍 match에서 두명 아이디 가져와서 파라미터에 넣기   get 쪽 다듬어야함.user_id가 안 받아져서 match의 2명 전부 loser로 들어감.
-        
-    
     return redirect('mainapp:profile')
     
