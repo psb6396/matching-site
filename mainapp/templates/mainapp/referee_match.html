@@ -12,7 +12,7 @@
                 <a href="{% url 'mainapp:define_winner' user_id=user.id match_id=match.id %}">{{ user.username }}</a>
             {% endif %}
         {% endfor %}
-        <a href="{% url 'mainapp:define_winner' user_id=user.id match_id=match.id %}">draw</a>
+        <a href="{% url 'mainapp:define_winner' user_id=0 match_id=match.id %}">draw</a>
         <br>
     {% endfor %}
     <!-- submit하면 바로 승자처리해주는 display도 필요함 -->

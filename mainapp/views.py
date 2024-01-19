@@ -107,12 +107,13 @@ def match_request(request, match_id):
     elif not random_opponent:
         print("매칭 상대방이 없습니다.")
         return redirect('mainapp:index')
+    # return redirect('mainapp:index') 이 코드를 아래로 하나로 싹 내려서 통일 가능한가
     
 def cancel_request(request):
     
     pass
     
-    # return redirect('mainapp:index') 이 코드를 아래로 하나로 싹 내려서 통일 가능한가
+    
     
 def match_info(request): 
     referee = request.user
@@ -126,7 +127,7 @@ def match_info(request):
 def define_winner(request, user_id, match_id): # 클릭한 정보가 winner 고로 loser만 찾아주면 됨.
     match = Match.objects.get(pk = match_id)
     elo = EloSystem()
-    if (user_id == None):
+    if (user_id == 0): #user의 id 로는 0 이 할당되지 않음을 이용함.
         player_objects = match.player.all()
         player1 = player_objects[0]
         player2 = player_objects[1]
@@ -137,4 +138,3 @@ def define_winner(request, user_id, match_id): # 클릭한 정보가 winner 고�
     
     return redirect('mainapp:profile')
     
-    # if문에 user_id가 2개 날라오는지 1개 날라오는지 확인해봐야함
