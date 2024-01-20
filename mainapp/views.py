@@ -103,23 +103,33 @@ def match_request(request, match_id):
         chosen_match = Match.objects.get(pk = match_id) 
         chosen_match.player.add(player1, player2)
         chosen_match.save()
-        return redirect('mainapp:index')
     elif not random_opponent:
         print("매칭 상대방이 없습니다.")
-        return redirect('mainapp:index')
-    # return redirect('mainapp:index') 이 코드를 아래로 하나로 싹 내려서 통일 가능한가
+    return redirect('mainapp:index')
     
 def cancel_request(request):
+    player1 = request.user
     
     pass
     
     
     
 def match_info(request): 
-    referee = request.user
-    matches = Match.objects.filter(referee = referee) # referee의 매치 정보를 불러와야 함
+    me = request.user
+    if (me.role == 'referee'):
+        matches = Match.objects.filter(referee = me) # referee의 매치 정보를 불러와야 함
+    elif (me.role == 'player'):
+        matches = Match.objects.filter(player = me)
     context = {'matches' : matches}
-    return render(request, 'mainapp/referee_match.html', context)
+    if (me.role == 'referee'):
+        return render(request, 'mainapp/referee_match.html', context)
+    elif (me.role == 'player'):
+        return render(request, 'mainapp/player_match.html', context)
+    
+def gym_info(request, match_id):
+    
+    pass
+    # return render(request, 'mainapp/referee_match.html', context)
     # matches가 
     # get으로 얻은 match 의 player 정보 불러오기
     # referee 입장에서 경기시간 제공하는 html

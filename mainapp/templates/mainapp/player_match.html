@@ -1,0 +1,13 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% for match in matches %}
+    <a href="{% url 'mainapp:cancel_request' %}" >({{match.date}}, {{match.time}})을 취소</a>
+    {{match.date}}, {{match.time}} <br>
+    {% endfor %}
+</body>
+</html>

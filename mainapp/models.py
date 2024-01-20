@@ -4,6 +4,7 @@ from django.db import models
 
 class Gym(models.Model):
     gym_name = models.CharField(max_length=50, default=None)
+    
 
 class My_user(AbstractUser):
     ROLES = (
