@@ -127,8 +127,9 @@ def match_info(request):
         return render(request, 'mainapp/player_match.html', context)
     
 def gym_info(request, match_id):
-    
-    pass
+    # match.id를 가지고 gym정보 context로 넣기 
+    gym = Gym.objects.get()
+    return render(request, 'mainapp/gym_info.html', context)
     # return render(request, 'mainapp/referee_match.html', context)
     # matches가 
     # get으로 얻은 match 의 player 정보 불러오기

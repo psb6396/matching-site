@@ -6,8 +6,9 @@
 </head>
 <body>
     {% for match in matches %}
-    <a href="{% url 'mainapp:cancel_request' %}" >({{match.date}}, {{match.time}})을 취소</a>
+        <a href="{% url 'mainapp:gym_info' match.id %}" >({{match.date}}, {{match.time}})</a>
     {{match.date}}, {{match.time}} <br>
     {% endfor %}
 </body>
 </html>
+{% comment %} <a href="{% url 'mainapp:cancel_request' %}" >({{match.date}}, {{match.time}})을 취소</a> {% endcomment %}

@@ -4,7 +4,7 @@ from django.db import models
 
 class Gym(models.Model):
     gym_name = models.CharField(max_length=50, default=None)
-    
+    # gym의 location도 넣어줄수 있나 카카오 맵이랑 어떻게 저렇게 ㅇㅇ
 
 class My_user(AbstractUser):
     ROLES = (
