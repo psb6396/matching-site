@@ -40,7 +40,7 @@ class My_user(AbstractUser):
         else:
             self.rank = "Iron"
     
-    # 심판과 gym 정보를 연결시켜야 함.
+    # 심판과 gym 정보를 연결시켜야 함.??
 
 class Match(models.Model):
     time1 = 'time1'

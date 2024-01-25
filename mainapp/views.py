@@ -128,7 +128,9 @@ def match_info(request):
     
 def gym_info(request, match_id):
     # match.id를 가지고 gym정보 context로 넣기 
-    gym = Gym.objects.get()
+    match = Match.objects.get(pk = match_id)
+    gym_info = match.gym
+    context = {'gym_info' : gym_info}
     return render(request, 'mainapp/gym_info.html', context)
     # return render(request, 'mainapp/referee_match.html', context)
     # matches가 
