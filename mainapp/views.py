@@ -127,14 +127,11 @@ def match_info(request):
         return render(request, 'mainapp/player_match.html', context)
     
 def gym_info(request, match_id):
-    # match.id를 가지고 gym정보 context로 넣기 
     match = Match.objects.get(pk = match_id)
     gym_info = match.gym
     context = {'gym_info' : gym_info}
     return render(request, 'mainapp/gym_info.html', context)
-    # matches가 
-    # get으로 얻은 match 의 player 정보 불러오기
-    # referee 입장에서 경기시간 제공하는 html
+    # gym_info 함수에서 kakaomap.js 의 adresssearch로 gym의 주소 문자열을 보내줘야 할 듯.
 
 def define_winner(request, user_id, match_id): # 클릭한 정보가 winner 고로 loser만 찾아주면 됨.
     match = Match.objects.get(pk = match_id)
