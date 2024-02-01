@@ -3,9 +3,8 @@ from django.db import models
     
 
 class Gym(models.Model):
-    gym_name = models.CharField(max_length=50, default=None)
-    # gym의 location도 넣어줄수 있나 카카오 맵이랑 어떻게 저렇게 ㅇㅇ
-    # longitude(경도)랑 latitude(위도) 이용??
+    gym_name = models.CharField(max_length=50)
+    adress = models.CharField(max_length=50, null=True, blank=True, default = None)
 
 class My_user(AbstractUser):
     ROLES = (
@@ -14,7 +13,7 @@ class My_user(AbstractUser):
     )
     role = models.CharField(max_length=10, choices=ROLES, default='player')
     score = models.IntegerField(default=1000)
-    intention_to_fight = models.BooleanField(default=False)
+    # intention_to_fight = models.BooleanField(default=False) 애초에 신청한다는거 자체가 의도가 있는걸 의미. 필요없는 field ㅇㅇ.
     gym = models.ManyToManyField(Gym) # 관장이 아닌 일반 플레이어들은 어떻게 해줘야하나? null = True같은걸 해줘야하나?
     wins = models.IntegerField(default=0)
     losses =  models.IntegerField(default=0)
@@ -43,6 +42,7 @@ class My_user(AbstractUser):
     
     # 심판과 gym 정보를 연결시켜야 함.??
 
+
 class Match(models.Model):
     time1 = 'time1'
     time2 = 'time2'
@@ -56,6 +56,10 @@ class Match(models.Model):
     ]
     time = models.CharField(max_length=10, choices=Time_choices)
     date = models.DateField(blank= True,null=True,auto_now=False, auto_now_add=False)
-    player = models.ManyToManyField(My_user, related_name = 'player_match')
+    player = models.ManyToManyField(My_user, related_name = 'player_match') #player1 player2 이런식으로 하는 건 지금이랑 별반 다를게 없음.
     referee = models.ManyToManyField(My_user,related_name = 'referee_match')
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE, null=True, default=None)
+    # firstplayer_apply = models.BooleanField(default = False)
+    # secondplayer_apply = models.BooleanField(default = False)
+    # 허락의 개념은 필요없음. 신청만 존재할뿐임.
+    

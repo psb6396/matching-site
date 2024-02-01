@@ -25,10 +25,11 @@ def referee_register(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         gym_name = request.POST.get('gym_name')
-        name_of_gym = Gym(gym_name = gym_name)
-        name_of_gym.save()
+        gym_adress = request.POST.get('gym_adress')
+        new_gym = Gym(gym_name = gym_name, adress = gym_adress)
+        new_gym.save()
         referee = My_user.objects.create_user(password = password, username = username, role='referee')
-        referee.gym.add(name_of_gym)
+        referee.gym.add(new_gym)
         return render(request, 'mainapp/index.html')
     else:
         return render(request, 'mainapp/referee_register.html')
@@ -89,30 +90,39 @@ def match_request_page(request):
     return render(request, 'mainapp/match_request.html', context) 
 
 @login_required
-def match_request(request, match_id):
-    player1 = request.user #me
-    player1.intention_to_fight = True
-    player1.save()
-    random_opponent = My_user.objects.exclude(Q(pk = player1.id) | Q(intention_to_fight = False))
+def match_request(request, match_id): 
+    myself = request.user #me
+    match = Match.objects.get(pk = match_id)
+    match.player.add(myself)
     
-    if Match.objects.filter(Q(pk = match_id) & Q(player = player1)).exists():  #클릭한 경기에 대한 match_id 중복확인
-        print("중복입니다.다른 시간대를 선택해주세요.")
-        return redirect('mainapp:match_request_page')
-    elif random_opponent.exists():
-        player2 = random.choice(random_opponent) 
-        chosen_match = Match.objects.get(pk = match_id) 
-        chosen_match.player.add(player1, player2)
-        chosen_match.save()
-    elif not random_opponent:
-        print("매칭 상대방이 없습니다.")
-    return redirect('mainapp:index')
+    # 한매치에 2명 이미 꽉 차있으면 에러나는 거 구현 필요.
+    # player1.intention_to_fight = True
+    # player1.save()
+    # random_opponent = My_user.objects.exclude(Q(pk = player1.id) | Q(intention_to_fight = False))
     
-def cancel_request(request):
-    player1 = request.user
+    # if Match.objects.filter(Q(pk = match_id) & Q(player = player1)).exists():  #클릭한 경기에 대한 match_id 중복확인
+    #     print("중복입니다.다른 시간대를 선택해주세요.")
+    #     return redirect('mainapp:match_request_page')
+    # elif random_opponent.exists():
+    #     player2 = random.choice(random_opponent) 
+    #     chosen_match = Match.objects.get(pk = match_id) 
+    #     chosen_match.player.add(player1, player2)
+    #     chosen_match.save()
+    # elif not random_opponent:
+    #     print("매칭 상대방이 없습니다.")
+    # return redirect('mainapp:index')
     
-    pass
-    
-    
+def cancel_request(request, match_id):
+    myself = request.user
+    match = Match.objects.get(pk = match_id)
+    match.player.remove(myself)
+    return redirect('mainapp:match_info')
+
+def cancel_match(request, match_id):
+    myself = request.user
+    match = Match.objects.get(pk = match_id)
+    match.delete()
+    return redirect('mainapp:gym_info')
     
 def match_info(request): 
     me = request.user
@@ -128,8 +138,8 @@ def match_info(request):
     
 def gym_info(request, match_id):
     match = Match.objects.get(pk = match_id)
-    gym_info = match.gym
-    context = {'gym_info' : gym_info}
+    gym_instance = match.gym
+    context = {'gym_instance' : gym_instance}
     return render(request, 'mainapp/gym_info.html', context)
     # gym_info 함수에서 kakaomap.js 의 adresssearch로 gym의 주소 문자열을 보내줘야 할 듯.
 
