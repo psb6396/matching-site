@@ -59,7 +59,6 @@ class Match(models.Model):
     player = models.ManyToManyField(My_user, related_name = 'player_match') #player1 player2 이런식으로 하는 건 지금이랑 별반 다를게 없음.
     referee = models.ManyToManyField(My_user,related_name = 'referee_match')
     gym = models.ForeignKey(Gym, on_delete=models.CASCADE, null=True, default=None)
-    # firstplayer_apply = models.BooleanField(default = False)
-    # secondplayer_apply = models.BooleanField(default = False)
+    
     # 허락의 개념은 필요없음. 신청만 존재할뿐임.
     

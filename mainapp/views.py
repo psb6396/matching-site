@@ -63,7 +63,7 @@ def profile(request):
 
 
 @login_required
-def match_make(request):
+def make_match(request):
     referee = request.user #심판
     now = datetime.now()
     max_date = now + timedelta(days = 7)
@@ -83,19 +83,23 @@ def match_make(request):
         return render(request, 'mainapp/gym_time.html', context)
     
 @login_required
-def match_request_page(request):
+def apply_match_page(request):
     # matches = Match.objects.all().order_by('date', 'time') 어떻게 렌더링 될지 모르니깐
     matches = Match.objects.all().order_by('date')
     context = {'matches' : matches}
-    return render(request, 'mainapp/match_request.html', context) 
+    return render(request, 'mainapp/apply_match.html', context) 
 
 @login_required
-def match_request(request, match_id): 
+def apply_match(request, match_id): 
     myself = request.user #me
     match = Match.objects.get(pk = match_id)
-    match.player.add(myself)
+    count_of_player = match.player.all().count()
+    if (count_of_player == 2): # 한 매칭에 2명이상 있으면 에러 발생.
+        print("자리가 없습니다.") 
+    elif(count_of_player < 2):
+        match.player.add(myself)
+    return redirect('mainapp:index')
     
-    # 한매치에 2명 이미 꽉 차있으면 에러나는 거 구현 필요.
     # player1.intention_to_fight = True
     # player1.save()
     # random_opponent = My_user.objects.exclude(Q(pk = player1.id) | Q(intention_to_fight = False))
@@ -110,13 +114,13 @@ def match_request(request, match_id):
     #     chosen_match.save()
     # elif not random_opponent:
     #     print("매칭 상대방이 없습니다.")
-    # return redirect('mainapp:index')
+    
     
 def cancel_request(request, match_id):
     myself = request.user
     match = Match.objects.get(pk = match_id)
     match.player.remove(myself)
-    return redirect('mainapp:match_info')
+    return redirect('mainapp:match_list')
 
 def cancel_match(request, match_id):
     myself = request.user
@@ -124,7 +128,7 @@ def cancel_match(request, match_id):
     match.delete()
     return redirect('mainapp:gym_info')
     
-def match_info(request): 
+def match_list(request): 
     me = request.user
     if (me.role == 'referee'):
         matches = Match.objects.filter(referee = me) # referee의 매치 정보를 불러와야 함
