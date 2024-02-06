@@ -82,8 +82,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'mydatabase',
         'USER' : 'root',
-        'PASSWORD' : '', # 설정한 비밀번호로 적어주면 된다.
-        'HOST' : '127.0.0.1',
+        'PASSWORD' : '(psb83794)', # 설정한 비밀번호로 적어주면 된다.
+        'HOST' : 'localhost',
         'PORT' : '3306',
     }
 }

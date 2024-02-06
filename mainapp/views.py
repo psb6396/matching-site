@@ -14,7 +14,7 @@ def player_register(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        My_user.objects.create_user(password = password, username = username, role='player')
+        My_user.objects.create_user(username = username, password = password,  role='player')
         return render(request, 'mainapp/index.html')
     else:
         return render(request, 'mainapp/player_register.html')
@@ -25,8 +25,7 @@ def referee_register(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         gym_name = request.POST.get('gym_name')
-        gym_adress = request.POST.get('gym_adress')
-        new_gym = Gym(gym_name = gym_name, adress = gym_adress)
+        new_gym = Gym(gym_name = gym_name)
         new_gym.save()
         referee = My_user.objects.create_user(password = password, username = username, role='referee')
         referee.gym.add(new_gym)
@@ -42,10 +41,9 @@ def login_request(request):
     if user is not None:
         login(request, user)
         print("login_success")
-        return render(request, 'mainapp/index.html')
     else:
         print("login error or authenticate error")
-        return render(request, 'mainapp/index.html')
+    return render(request, 'mainapp/index.html')
 
 #로그아웃 함수
 def logout_request(request):
@@ -71,16 +69,14 @@ def make_match(request):
     if request.method == 'POST':
         date = request.POST.get('gym_date')
         time = request.POST.get('gym_time')
-        if not Match.objects.filter(date = date , time = time, referee = referee).exists():
-            created_match = Match(date = date, time = time)
+        if not Match.objects.filter(date = date , time = time, referee = referee).exists(): # 클릭한 시간대의 경기가 없다면
+            created_match = Match(date = date, time = time) # 매치 생성.
             created_match.save()
             created_match.referee.add(referee)
             created_match.save()
         else:
             print("object_repetition")
-        return render(request, 'mainapp/gym_time.html', context)
-    else:
-        return render(request, 'mainapp/gym_time.html', context)
+    return render(request, 'mainapp/gym_time.html', context)
     
 @login_required
 def apply_match_page(request):

@@ -4,7 +4,7 @@ from django.db import models
 
 class Gym(models.Model):
     gym_name = models.CharField(max_length=50)
-    adress = models.CharField(max_length=50, null=True, blank=True, default = None)
+    # adress = models.CharField(max_length=50, null=True, blank=True, default = None)
 
 class My_user(AbstractUser):
     ROLES = (
