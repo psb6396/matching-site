@@ -94,10 +94,11 @@ def match_list(request): # 걍 모든 match list
     context = {'matches' : matches}
     return render(request, 'mainapp/apply_match.html', context)
     
-@login_required    
-def detail_of_match(request):
-    
-    pass
+@login_required
+def detail_of_match(request, match_id):
+    match = Match.objects.get(pk = match_id)
+    context = {'match' : match}
+    return render(request, 'mainapp/detail_of_match.html', context)
 
 @login_required
 def apply_match(request, match_id): 
