@@ -52,6 +52,16 @@ def logout_request(request):
 
 @login_required
 def profile(request):
+    # me = request.user
+    # if (me.role == 'referee'):
+    #     matches = Match.objects.filter(referee = me) # 이건 오히려 profile에 가까움 ㅇㅇ.
+    # elif (me.role == 'player'):
+    #     matches = Match.objects.filter(player = me)
+    # context = {'matches' : matches}
+    # if (me.role == 'referee'):
+    #     return render(request, 'mainapp/referee_match.html', context)
+    # elif (me.role == 'player'):
+    #     return render(request, 'mainapp/player_match.html', context)
     me = request.user
     if (me.role == 'referee'):
         context = {'me' : me, 'me_referee' : me} # 첫번째 me는 빼도 되지 않나....?
@@ -79,11 +89,15 @@ def make_match(request):
     return render(request, 'mainapp/gym_time.html', context)
     
 @login_required
-def apply_match_page(request):
-    # matches = Match.objects.all().order_by('date', 'time') 어떻게 렌더링 될지 모르니깐
-    matches = Match.objects.all().order_by('date')
+def match_list(request): # 걍 모든 match list
+    matches = Match.objects.all().order_by('date', 'time') # 매치들을 날짜와 시간순으로 정렬
     context = {'matches' : matches}
-    return render(request, 'mainapp/apply_match.html', context) 
+    return render(request, 'mainapp/apply_match.html', context)
+    
+@login_required    
+def detail_of_match(request):
+    
+    pass
 
 @login_required
 def apply_match(request, match_id): 
@@ -123,18 +137,10 @@ def cancel_match(request, match_id):
     match = Match.objects.get(pk = match_id)
     match.delete()
     return redirect('mainapp:gym_info')
+
+
     
-def match_list(request): 
-    me = request.user
-    if (me.role == 'referee'):
-        matches = Match.objects.filter(referee = me) # referee의 매치 정보를 불러와야 함
-    elif (me.role == 'player'):
-        matches = Match.objects.filter(player = me)
-    context = {'matches' : matches}
-    if (me.role == 'referee'):
-        return render(request, 'mainapp/referee_match.html', context)
-    elif (me.role == 'player'):
-        return render(request, 'mainapp/player_match.html', context)
+
     
 def gym_info(request, match_id):
     match = Match.objects.get(pk = match_id)
